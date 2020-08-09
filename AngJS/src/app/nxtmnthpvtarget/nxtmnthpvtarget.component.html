@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="form-group">
+        <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
+            <table #table class="table table-sm table-striped table-dark ea_table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Account</th>
+                        <th scope="col">Track</th>
+                        <th scope="col">CurrentPHC<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
+                        <th scope="col">CurrentVOL</th>
+                        <th scope="col">NextMonthPHC</th>
+                        <th scope="col">NextMonthOffshoreVol</th>
+                        <th scope="col">NextMonthOnsiteVol</th>
+                        <th scope="col">NextMonthTotalVol</th>
+                        <th scope="col">Next minus current PHC gap</th>
+                        <th scope="col">Next minus current Vol gap</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Edit</th>
+                      </tr>
+                  
+                    </thead>
+                   
+                    <tbody>
+                      <tr *ngFor="let acntPV of accountPV; index as i">
+                        
+                        <td scope="row">{{i+1}}</td>
+                        <td scope="row">{{acntPV.accountName}}</td>
+                        <td scope="row">{{acntPV.accountTrack}}</td>
+                        
+  
+                        <td scope="row">{{acntPV.phcAOL | number:'1.2-2'}}</td>
+
+                        <td scope="row">{{acntPV.volAOD | number:'1.2-2'}}</td>
+  
+                      
+                        <td scope="row">
+                            <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="nxtMnthPHC[i]" (change)="updateAcntBENPBE(i)"></p>
+                            <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthPHC}}</p>
+                        </td>
+                        <td scope="row">
+                                <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="nxtMnthOffshoreVol[i]" (change)="updateAcntBENPBE(i)"></p>
+                                <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthOffshoreVol}}</p>
+                            </td>
+                        <td scope="row">
+                            <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="nxtMnthOnsiteVol[i]" (change)="updateAcntBENPBE(i)"></p>
+                            <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthOnsiteVol}}</p>
+                        </td>
+                        
+                        <td scope="row">{{acntPV.nxtMnthOffshoreVol + acntPV.nxtMnthOnsiteVol}}</td>
+                    
+                        
+                          
+                        <td scope="row">{{acntPV.nxtMnthPHC - acntPV.phcAOL }}</td>                     
+                        <td scope="row">{{acntPV.nxtMnthOffshoreVol + acntPV.nxtMnthOnsiteVol - acntPV.volAOD | number}}</td>
+                        
+  
+                        <td scope="row">
+                          <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Address" [(ngModel)]="nxtMnthGapremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
+  
+                          <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthGapremarks}}</p>
+                        </td>
+  
+                        
+                        <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
+                      
+                      </tr>
+                     <tr>
+                          <td scope="row"></td>
+                          <td scope="row">Total</td>
+                          <td scope="row"></td>
+                          <td scope="row">{{totalPV[4]}}</td>
+                          <td scope="row">{{totalPV[5] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totalPV[8]}}</td>
+                          <td scope="row">{{totalPV[9] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totalPV[10]}}</td>
+                          
+                          <td scope="row">{{totalPV[11]}}</td>
+                          <td scope="row">{{totalPV[12] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totalPV[13] | number:'1.2-2' }}</td>
+                          <td scope="row"></td>
+                          <td scope="row"></td>
+  
+                      </tr> 
+                      
+                    </tbody>
+
+                    </table>
+       </div>
+  </div>

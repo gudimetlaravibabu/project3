@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="table-responsive form-group">
+        <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
+            <table #table class="table table-sm table-striped table-dark ea_table">
+                    <thead>
+                      <tr>
+                        
+                        <th scope="col">DM</th>
+                        
+                        <th scope="col">TargetPHC</th>
+                        <th scope="col">TargetVOL</th>
+                        <th scope="col">PHC Today</th>
+                        <th scope="col">VOL Today</th>
+                        <th scope="col">Phc Endstate</th>
+                        
+                        <th scope="col">PHC gap</th>
+                        <th scope="col">Vol gap</th>
+                        <th scope="col">Remarks</th>
+                       
+                       
+                        
+                        
+                      </tr>
+                    </thead>
+                    
+                  <tbody>
+                    <tr *ngFor="let totPV of totPhcVol; index as i">
+                         <td scope="row">{{totPV.dm}}</td>
+                            <td scope="row">{{totPV.phcTarget}}</td>
+                            <td scope="row">{{totPV.volTarget | number:'1.2-2' }}</td>
+                            <td scope="row">{{totPV.phcAOD}}</td>
+                            <td scope="row">{{totPV.volAOD | number:'1.2-2' }}</td>
+                            <td scope="row">{{totPV.phcAOL}}</td>
+                            <td scope="row">{{totPV.phcGap}}</td>
+                            <td scope="row">{{totPV.volGap | number:'1.2-2' }}</td>
+                            <td scope="row">{{totPV.remarks}}</td> 
+                         </tr> 
+                       
+              
+                
+                    </tbody>
+              
+                  
+                  </table>
+       </div>
+  </div>

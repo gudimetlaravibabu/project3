@@ -1,0 +1,16 @@
+{
+    "/phcvol/*":{
+        "target": "http://localhost:8081",
+        "secure":false,
+        "logLevel":"debug",
+        "changeOrigin":true
+    },
+
+    "/be/*":{
+        "target": "http://localhost:8082",
+        "secure":false,
+        "logLevel":"debug",
+        "changeOrigin":true
+    }
+    
+}
