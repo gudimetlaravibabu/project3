@@ -16,7 +16,7 @@ export class VolumeTodayComponent implements OnInit {
 
   ngOnInit() {
 
-    this.httpClient.get("be/volaod")
+    this.httpClient.get("phcvol/volaod")
      .subscribe(
        (response)=>
         {

@@ -55,11 +55,11 @@
 
                       
                                             
-                      <td scope="row">{{acntPV.phcTarget-acntPV.phcAOL}}</td>
-                      <td scope="row">{{acntPV.volTarget-acntPV.volAOD | number:'1.2-2' }}</td>
+                      <td scope="row">{{acntPV.phcAOL-acntPV.phcTarget}}</td>
+                      <td scope="row">{{acntPV.volAOD-acntPV.volTarget | number:'1.2-2' }}</td>
 
                       <td scope="row">
-                        <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
+                        <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
 
                         <p *ngIf="!showTextbox[i]">{{acntPV.remarks}}</p>
                       </td>

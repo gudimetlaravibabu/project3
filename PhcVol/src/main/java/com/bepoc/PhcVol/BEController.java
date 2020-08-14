@@ -88,6 +88,20 @@ public class BEController {
     }
 
 
+    @PutMapping("/phcvoltotals/{id}")
+    public void putPhcVolTotals(@PathVariable int id, @RequestBody PhcVolTotal phcVoltotal)  {
+        beservice.putPhcVolTotals(phcVoltotal,id);
+
+    }
+
+
+
+    @RequestMapping("/phcvoltotals/total")
+    public List<Double> getTotalPhcVolTotals() {
+        return beservice.getTotalPhcVolTotals();
+    }
+
+
     @RequestMapping("/phcvol/total/{dm}")
     public List<Double> getTotalPhcVolSummary(@PathVariable String dm) throws IOException {
         return beservice.getTotalPhcVolSummary(dm);
@@ -111,6 +125,8 @@ public class BEController {
         beservice.putPhcVolTarget(phcVol,id);
 
     }
+
+
 
     @RequestMapping("/phcvolsummary/total/{dm}")
     public List<Double> getTotalPhcVolAccountSummary(@PathVariable String dm) throws IOException {

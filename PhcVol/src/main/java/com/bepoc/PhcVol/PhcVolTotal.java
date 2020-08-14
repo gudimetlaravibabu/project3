@@ -1,12 +1,16 @@
 package com.bepoc.PhcVol;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class PhcVolTotal {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String dm;
     private double phcTarget;
     private double volTarget;
@@ -21,7 +25,8 @@ public class PhcVolTotal {
 
     }
 
-    public PhcVolTotal(String dm, double phcTarget, double volTarget, double phcAOD, double volAOD, double phcAOL, double phcGap, double volGap, String remarks) {
+    public PhcVolTotal(int id, String dm, double phcTarget, double volTarget, double phcAOD, double volAOD, double phcAOL, double phcGap, double volGap, String remarks) {
+        this.id = id;
         this.dm = dm;
         this.phcTarget = phcTarget;
         this.volTarget = volTarget;
@@ -31,6 +36,14 @@ public class PhcVolTotal {
         this.phcGap = phcGap;
         this.volGap = volGap;
         this.remarks = remarks;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDm() {
@@ -81,14 +94,6 @@ public class PhcVolTotal {
         this.phcAOL = phcAOL;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
     public double getPhcGap() {
         return phcGap;
     }
@@ -103,5 +108,13 @@ public class PhcVolTotal {
 
     public void setVolGap(double volGap) {
         this.volGap = volGap;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

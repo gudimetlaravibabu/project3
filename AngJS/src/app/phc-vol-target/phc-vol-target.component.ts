@@ -15,7 +15,7 @@ export class PhcVolTargetComponent implements OnInit{
 
   ngOnInit() {
 
-    this.httpClient.get("be/phcvoltarget")
+    this.httpClient.get("phcvol/phcvoltarget")
      .subscribe(
        (response)=>
         {

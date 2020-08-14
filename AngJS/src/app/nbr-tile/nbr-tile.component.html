@@ -1,66 +1,54 @@
-<div class="card">
-        <div class="table-responsive form-group">
+
             <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-                <table #table class="table table-sm table-striped table-dark ea_table">
+
+            <section class="content-area">
+            <div class="table-area">
+                <table class="responsive-table table-bordered table-condensed auto-w">
+
                         <thead>
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Acnt</th>
                             <th scope="col">Track</th>
-                            <th scope="col">Cur</th>
-                            <th scope="col">Disc%</th>
-
+                        <!--    <th scope="col">Nat Cur</th> -->
                             <th scope="col">M1N<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
-                           <!-- <th scope="col" >NPBE<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th> -->
                             <th scope="col">M1B</th>
                             <th scope="col">M1R</th>
                             <th scope="col">M1(B-R)</th>
                             <th scope="col"></th>
-
                             <th scope="col">M2N</th>
                             <th scope="col">M2B</th>
                             <th scope="col">M2R</th>
                             <th scope="col">M2(B-R)</th>
                             <th scope="col"></th>
-
                             <th scope="col">M3N</th>
                             <th scope="col">M3B</th>
                             <th scope="col">M3R</th>
                             <th scope="col">M3(B-R)</th>
                             <th scope="col"></th>
-
-                            <th scope="col">Total(N)</th>
-                            <th scope="col">Total(B)</th>
-                            <th scope="col">Total(R)</th>
-                            
-                            
                             <th scope="col">Edit</th>
-                            
-                            
                           </tr>
                         </thead>
-                        
-                       
                         <tbody>
                           <tr *ngFor="let acntBE of accountBE; index as i">
                             <td scope="row">{{i+1}}</td>
                             <td scope="row">{{acntBE.accountName}}</td>
                             <td scope="row">{{acntBE.accountTrack}}</td>
-                            <!--<td scope="row">
+                          <!--  <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" [(ngModel)]="nativecurrency[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.nativecurrency}}</p>
-                            </td>-->
-                            <td scope="row"> {{acntBE.nativecurrency}}   </td>
-                          <!--  <td scope="row">
+                            </td>
+                            <td scope="row"> {{acntBE.nativecurrency}}   </td> 
+                                 <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text  style="width:50px" appOnlydouble required [(ngModel)]="nativediscount[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.nativediscount}}</p>
-                            </td> -->
+                            </td> 
 
-                            <td scope="row"> {{acntBE.nativediscount | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.nativediscount | number:'1.2-2'}}   </td> -->
 
                             <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m1native[i]" (change)="updateAcntBENPBE(i)"></p>
-                                    <p *ngIf="!showTextbox[i]">{{acntBE.m1native | number:'1.2-2'}}</p>
+                                    <p *ngIf="!showTextbox[i]">{{acntBE.m1native | number:'1.1-1'}}</p>
                             </td>
                           <!--  <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m1be[i]" (change)="updateAcntBENPBE(i)"></p>
@@ -69,18 +57,18 @@
 
                             </td>  -->
 
-                            <td scope="row"> {{acntBE.m1be | number:'1.2-2'}}   </td>
-                            <td scope="row"> {{acntBE.m1rtbr | number:'1.2-2'}}   </td>
-                            <td scope="row"> {{acntBE.m1be-acntBE.m1rtbr | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.m1be | number:'1.1-1'}}   </td>
+                            <td scope="row"> {{acntBE.m1rtbr | number:'1.1-1'}}   </td>
+                            <td scope="row"> {{acntBE.m1be-acntBE.m1rtbr | number:'1.1-1'}}   </td>
                             <td scope="row">
-                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" text-align="left" class="e-input" placeholder="M1 Remarks" [(ngModel)]="m1bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
+                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M1 Remarks" [(ngModel)]="m1bertbrremarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
             
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m1bertbrremarks}}</p>
                             </td>
 
                             <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m2native[i]" (change)="updateAcntBENPBE(i)"></p>
-                                    <p *ngIf="!showTextbox[i]">{{acntBE.m2native | number:'1.2-2'}}</p>
+                                    <p *ngIf="!showTextbox[i]">{{acntBE.m2native | number:'1.1-1'}}</p>
                             </td>
                          <!--   <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m2be[i]" (change)="updateAcntBENPBE(i)"></p>
@@ -91,10 +79,10 @@
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m2rtbr}}</p>
                             </td> -->
 
-                            <td scope="row"> {{acntBE.m2be | number:'1.2-2'}}   </td>
-                            <td scope="row"> {{acntBE.m2rtbr | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.m2be | number:'1.1-1'}}   </td>
+                            <td scope="row"> {{acntBE.m2rtbr | number:'1.1-1'}}   </td>
 
-                            <td scope="row"> {{acntBE.m2be-acntBE.m2rtbr | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.m2be-acntBE.m2rtbr | number:'1.1-1'}}   </td>
                             <td scope="row">
                                     <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M2 Remarks" [(ngModel)]="m2bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
             
@@ -104,7 +92,7 @@
 
                             <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m3native[i]" (change)="updateAcntBENPBE(i)"></p>
-                                    <p *ngIf="!showTextbox[i]">{{acntBE.m3native | number:'1.2-2'}}</p>
+                                    <p *ngIf="!showTextbox[i]">{{acntBE.m3native | number:'1.1-1'}}</p>
                             </td>
                          <!--   <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m3be[i]" (change)="updateAcntBENPBE(i)"></p>
@@ -115,10 +103,10 @@
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m3rtbr}}</p>
                             </td> -->
 
-                            <td scope="row"> {{acntBE.m3be | number:'1.2-2'}}   </td>
-                            <td scope="row"> {{acntBE.m3rtbr | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.m3be | number:'1.1-1'}}   </td>
+                            <td scope="row"> {{acntBE.m3rtbr | number:'1.1-1'}}   </td>
 
-                            <td scope="row"> {{acntBE.m3be-acntBE.m3rtbr | number:'1.2-2'}}   </td>
+                            <td scope="row"> {{acntBE.m3be-acntBE.m3rtbr | number:'1.1-1'}}   </td>
                            
                             <td scope="row">
                                     <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M3 Remarks" [(ngModel)]="m3bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
@@ -127,20 +115,6 @@
                             </td>
 
 
-                        
-
-                            <td scope="row">{{acntBE.totalnative | number:'1.2-2' }}</td>
-                            <td scope="row">{{acntBE.totalbe | number:'1.2-2' }}</td>
-                            <td scope="row">{{acntBE.totalrtbr | number:'1.2-2' }}</td>
-
-                            
-                       
-    
-                            
-    
-                     
-      
-                            
                             <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
     
                             
@@ -150,5 +124,6 @@
                   
                       
                       </table>
-           </div>
-    </div>
+           
+        </div>
+</section>

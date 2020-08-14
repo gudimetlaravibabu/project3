@@ -15,7 +15,7 @@ export class PhcTodayLWDComponent implements OnInit {
 
   ngOnInit() {
 
-    this.httpClient.get("be/phc")
+    this.httpClient.get("phcvol/phc")
      .subscribe(
        (response)=>
         {

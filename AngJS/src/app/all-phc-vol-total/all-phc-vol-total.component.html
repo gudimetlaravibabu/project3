@@ -9,14 +9,14 @@
                         
                         <th scope="col">TargetPHC</th>
                         <th scope="col">TargetVOL</th>
-                        <th scope="col">PHC Today</th>
+                        <th scope="col">PHC Today<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
                         <th scope="col">VOL Today</th>
                         <th scope="col">Phc Endstate</th>
                         
                         <th scope="col">PHC gap</th>
                         <th scope="col">Vol gap</th>
                         <th scope="col">Remarks</th>
-                       
+                        <th scope="col">Edit</th>
                        
                         
                         
@@ -26,17 +26,51 @@
                   <tbody>
                     <tr *ngFor="let totPV of totPhcVol; index as i">
                          <td scope="row">{{totPV.dm}}</td>
-                            <td scope="row">{{totPV.phcTarget}}</td>
-                            <td scope="row">{{totPV.volTarget | number:'1.2-2' }}</td>
+
+
+                         <td scope="row">
+                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text appOnlynumber required [(ngModel)]="phcTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                          <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{totPV.phcTarget}}</p>
+                          <p *ngIf="!showTextbox[i]">{{totPV.phcTarget}}</p>
+                        </td>
+                        <td scope="row">
+                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text [(ngModel)]="volTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                          <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{totPV.volTarget | number:'1.2-2'}}</p>
+                          <p *ngIf="!showTextbox[i]">{{totPV.volTarget | number:'1.2-2'}}</p>
+                        </td>
+  
+
                             <td scope="row">{{totPV.phcAOD}}</td>
                             <td scope="row">{{totPV.volAOD | number:'1.2-2' }}</td>
                             <td scope="row">{{totPV.phcAOL}}</td>
                             <td scope="row">{{totPV.phcGap}}</td>
                             <td scope="row">{{totPV.volGap | number:'1.2-2' }}</td>
-                            <td scope="row">{{totPV.remarks}}</td> 
+                            <td scope="row">
+                              <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
+      
+                              <p *ngIf="!showTextbox[i]">{{totPV.remarks}}</p>
+                            </td>
+                            <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
                          </tr> 
                        
-              
+                         
+
+                        <tr>
+                          
+                          <td scope="row">Total</td>
+                          <td scope="row">{{totaldmpv[0]}}</td>
+                          <td scope="row">{{totaldmpv[1] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totaldmpv[2]}}</td>
+                          <td scope="row">{{totaldmpv[3] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totaldmpv[4]}}</td>
+                          
+                          <td scope="row">{{totaldmpv[5]}}</td>
+                          <td scope="row">{{totaldmpv[6] | number:'1.2-2'}}</td>
+                          
+                          <td scope="row"></td>
+                          <td scope="row"></td>
+  
+                      </tr> -->
                 
                     </tbody>
               

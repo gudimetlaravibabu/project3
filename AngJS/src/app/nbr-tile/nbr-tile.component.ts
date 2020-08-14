@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./nbr-tile.component.scss']
 })
 export class NbrTileComponent implements OnInit {
-  @ViewChild('table', {static:false}) table: ElementRef;
+   @ViewChild('table', {static:false}) table: ElementRef;
 
   @Input() accountBE : AccountBE[];
   @Input() totalBE : TotalBE[];
@@ -39,9 +39,12 @@ export class NbrTileComponent implements OnInit {
   m2rtbr : number[]=[];
   m3rtbr : number[]=[];
   totalrtbr : number[]=[];
-  m1bertbrremarks : String[]=[];
-  m2bertbrremarks : String[]=[];
-  m3bertbrremarks : String[]=[];
+  m1bertbrremarks : string[]=[];
+  m2bertbrremarks : string[]=[];
+  m3bertbrremarks : string[]=[];
+  
+  currmnthbe : number[]=[];
+  currmnthrtbr : number[]=[];
 
   url:string;
       
@@ -87,9 +90,10 @@ export class NbrTileComponent implements OnInit {
       this.m1bertbrremarks[i] = this.accountBE[i].m1bertbrremarks;
       this.m2bertbrremarks[i] = this.accountBE[i].m2bertbrremarks;
       this.m3bertbrremarks[i] = this.accountBE[i].m3bertbrremarks;
+
+      this.currmnthbe[i] = this.accountBE[i].m2be;
+      this.currmnthrtbr[i] = this.accountBE[i].m2rtbr;
      
-
-
       this.showTextbox[i] = this.accountBE[i].showTextbox;
       this.showUpdatebutton[i] = this.accountBE[i].showUpdatebutton;
       
@@ -149,6 +153,26 @@ export class NbrTileComponent implements OnInit {
     this.accountBE[i].m2bertbrremarks=this.m2bertbrremarks[i];
     this.accountBE[i].m3bertbrremarks=this.m3bertbrremarks[i];
 
+    this.accountBE[i].currmnthbe = this.currmnthbe[i];
+    this.accountBE[i].currmnthrtbr = this.currmnthrtbr[i];
+
+    if(this.m1bertbrremarks[i] !== null) 
+    {
+    this.accountBE[i].remarks = "m1->"+ this.m1bertbrremarks[i] +"\n";
+    console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
+    }
+
+    if(this.m2bertbrremarks[i] !== null) 
+    {
+    this.accountBE[i].remarks = this.accountBE[i].remarks + "m2->"+ this.m2bertbrremarks[i] + "\n";
+    console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
+    }
+
+    if(this.m3bertbrremarks[i] !== null) 
+    {
+    this.accountBE[i].remarks = this.accountBE[i].remarks + "m3->"+ this.m3bertbrremarks[i];
+    console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
+    }
 
 
 
@@ -179,7 +203,7 @@ export class NbrTileComponent implements OnInit {
                  this.response = response; 
                  this.totalBE=this.response;
                
-                 this.router.navigateByUrl('allaccounts');
+                 this.router.navigateByUrl('allaccountspu/benp/benpall');
                 });
                
              }

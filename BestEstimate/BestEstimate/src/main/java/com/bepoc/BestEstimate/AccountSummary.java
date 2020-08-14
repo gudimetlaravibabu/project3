@@ -1,5 +1,6 @@
 package com.bepoc.BestEstimate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -17,10 +18,19 @@ public class AccountSummary implements Serializable {
     private double rtb;
     private String remarks;
 
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthdhbe;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthbe;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthrtbr;
+
     public AccountSummary() {
     }
 
-    public AccountSummary(String accountName, String dm, String da, double dhBE, double pmBE, double rtb, String remarks) {
+    public AccountSummary(String accountName, String dm, String da, double dhBE, double pmBE, double rtb, String remarks, double currmnthdhbe, double currmnthbe, double currmnthrtbr) {
         this.accountName = accountName;
         this.dm = dm;
         this.da = da;
@@ -28,6 +38,9 @@ public class AccountSummary implements Serializable {
         this.pmBE = pmBE;
         this.rtb = rtb;
         this.remarks = remarks;
+        this.currmnthdhbe = currmnthdhbe;
+        this.currmnthbe = currmnthbe;
+        this.currmnthrtbr = currmnthrtbr;
     }
 
     public String getAccountName() {
@@ -84,5 +97,29 @@ public class AccountSummary implements Serializable {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public double getCurrmnthdhbe() {
+        return currmnthdhbe;
+    }
+
+    public void setCurrmnthdhbe(double currmnthdhbe) {
+        this.currmnthdhbe = currmnthdhbe;
+    }
+
+    public double getCurrmnthbe() {
+        return currmnthbe;
+    }
+
+    public void setCurrmnthbe(double currmnthbe) {
+        this.currmnthbe = currmnthbe;
+    }
+
+    public double getCurrmnthrtbr() {
+        return currmnthrtbr;
+    }
+
+    public void setCurrmnthrtbr(double currmnthrtbr) {
+        this.currmnthrtbr = currmnthrtbr;
     }
 }

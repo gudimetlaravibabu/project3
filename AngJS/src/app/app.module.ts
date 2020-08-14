@@ -72,6 +72,7 @@ import { CurrconvComponent } from './currconv/currconv.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,6 +136,7 @@ import { CurrconvComponent } from './currconv/currconv.component';
     NbrsaradaComponent,
     NbrTileComponent,
     CurrconvComponent
+    
     
   ],
   imports: [

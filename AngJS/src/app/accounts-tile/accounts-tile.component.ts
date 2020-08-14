@@ -115,7 +115,7 @@ export class AccountsTileComponent implements OnInit {
                  this.response = response; 
                  this.totalBE=this.response;
                
-                 this.router.navigateByUrl('allaccounts');
+                 this.router.navigateByUrl('allaccountspu/benp');
                 });
                
              }

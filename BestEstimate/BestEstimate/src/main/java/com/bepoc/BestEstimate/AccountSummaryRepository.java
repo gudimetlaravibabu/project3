@@ -18,12 +18,12 @@ public interface AccountSummaryRepository extends JpaRepository<AccountSummary, 
     public List<AccountSummary> findByDmOrderByAccountName(String dm);
 
     @Modifying
-    @Query(value = "insert into account_Summary (account_name, dm, pmbe, rtb, dhbe)  select account_Name, dm,  Sum(pmbe), Sum(rtb), sum(dhbe) from accountbe where dm in (:dm) and account_Name=:accountName group by account_Name,dm",nativeQuery = true)
-    public void insertPhcVolSummaryDB(@Param("accountName") String accountName, @Param("dm") String dm);
+    @Query(value = "insert into account_Summary (account_name, dm, pmbe, rtb, dhbe, remarks, currmnthdhbe, currmnthbe, currmnthrtbr)  select account_Name, dm,  Sum(pmbe), Sum(rtb), sum(dhbe), group_concat(distinct remarks order by remarks desc separator '\n'), sum(currmnthdhbe), sum(currmnthbe), sum(currmnthrtbr) from accountbe where dm in (:dm) and account_Name=:accountName group by account_Name,dm",nativeQuery = true)
+    public void insertAccountBESummaryDB(@Param("accountName") String accountName, @Param("dm") String dm);
 
     @Modifying
-    @Query(value = "update account_summary A, (select account_Name, Sum(pmbe) Svt, Sum(rtb) Spd, sum(dhbe) Svd from accountbe where account_Name=:account_Name and dm=:dm group by account_Name) B set A.pmbe=B.Svt,  A.rtb=B.Spd, A.dhbe=B.Svd where A.account_Name=:account_Name and A.dm=:dm",nativeQuery = true)
-    public void updatePhcVolSummaryDB(@Param("account_Name") String account_Name, @Param("dm") String dm);
+    @Query(value = "update account_summary A, (select account_Name, group_concat(distinct remarks order by remarks desc separator '\n') rmks, Sum(pmbe) Svt, Sum(rtb) Spd, sum(dhbe) Svd, sum(currmnthdhbe) cmdhbe, sum(currmnthbe) cmbe, sum(currmnthrtbr) cmrtbr from accountbe where account_Name=:account_Name and dm=:dm group by account_Name) B set A.pmbe=B.Svt,  A.rtb=B.Spd, A.dhbe=B.Svd, A.remarks=B.rmks, A.currmnthdhbe=B.cmdhbe, A.currmnthbe=B.cmbe, A.currmnthrtbr=B.cmrtbr where A.account_Name=:account_Name and A.dm=:dm",nativeQuery = true)
+    public void updateAccountBESummaryDB(@Param("account_Name") String account_Name, @Param("dm") String dm);
 
 
     @Query(value="select distinct concat(dm, account_name), account_name, dm from account_Summary where dm in (:dm)", nativeQuery = true)

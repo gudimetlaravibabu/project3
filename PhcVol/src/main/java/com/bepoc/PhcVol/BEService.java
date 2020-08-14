@@ -36,6 +36,7 @@ public class BEService {
     private BusinessLogic bl;
 
     private List<PhcVol> phcVolList;
+    private List<PhcVolTotal> phcVolTotalList;
     private List<PhcVol> pvolList;
 
 
@@ -56,6 +57,8 @@ public class BEService {
     private double totalvolAOD;
     private double totalphcAOL;
     private double totalvolAOL;
+    private double totalphcGap;
+    private double totalvolGap;
     private double totalphcTargetAOLGap;
     private double totalvolTargetAOLGap;
     private double totalnxtMnthOffshoreVol;
@@ -75,6 +78,9 @@ public class BEService {
 
 
     public List<PhcVol> getPhcVolTarget() throws IOException {
+
+
+
         phcVolList = new ArrayList<PhcVol>();
         FileInputStream excelFile = new FileInputStream(new File(bl.getPvtfile()));
         XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
@@ -84,7 +90,7 @@ public class BEService {
         phcVolRepository.updatePhcVolDBVolZero();
         phcVolRepository.updatePhcVolDBPhcZero();
 
-        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows();i++) {
             PhcVol phcVol = new PhcVol();
             XSSFRow row = worksheet.getRow(i);
 
@@ -101,6 +107,8 @@ public class BEService {
                     phcVol.setPhcTarget((double) row.getCell(4).getNumericCellValue());
                 if (row.getCell(5) != null) ;
                     phcVol.setVolTarget((double) row.getCell(5).getNumericCellValue());
+
+
 
                 phcVolList.add(phcVol);
             }
@@ -119,13 +127,21 @@ public class BEService {
                     phcVolRepository.insertPhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
                 }
 
+
+
                 // System.out.print("AccountTrack inside phcVolList loop ->"+p.getAccountTrack());
                 //phcVolRepository.insertPhcVolDB(p.getVolAOD(), p.getAccountName(), p.getAccountTrack());
 
             });
 
 
-        //phcVolRepository.saveAll(dhRTBRList);
+      allDMs.stream().forEach(q->
+        {
+
+              phcVolTotalRepository.updatePhcVolTargetsTotalDM(q);
+
+        });
+
 
         return phcVolList;
     }
@@ -320,16 +336,52 @@ public class BEService {
     public List<PhcVolTotal> getPhcVolTotals()
     {
 
-        allDMs.stream().forEach(p->
+        allDMs.stream().forEach(q->
         {
-            totalPhcVolDm = getTotalPhcVolSummary(p);
-            phcVolTotalRepository.updatePhcVolTotalDM(totalPhcVolDm.get(2), totalPhcVolDm.get(3), totalPhcVolDm.get(4), totalPhcVolDm.get(6), totalPhcVolDm.get(7), p);
+            totalPhcVolDm = new ArrayList<Double>();
+            totalPhcVolDm = getTotalPhcVolSummary(q);
+
+             phcVolTotalRepository.updatePhcVolTotalDM(totalPhcVolDm.get(2), totalPhcVolDm.get(3), totalPhcVolDm.get(4), totalPhcVolDm.get(6), totalPhcVolDm.get(7), q);
 
         });
 
         return phcVolTotalRepository.findAll();
 
     }
+
+
+ /*   public Object getTotalPhcVolTotals()
+    {
+
+        return phcVolTotalRepository.findTotalDMPhcVolTargets();
+
+    } */
+
+    public List<Double> getTotalPhcVolTotals() {
+        totalphcTarget=0;
+        totalvolTarget=0;
+        totalphcAOD=0;
+        totalvolAOD=0;
+        totalphcAOL=0;
+        totalphcGap=0;
+        totalvolGap=0;
+        phcVolTotalList = phcVolTotalRepository.findAll();
+        phcVolTotalList.forEach((p)->{
+            totalphcTarget = totalphcTarget + p.getPhcTarget();
+            totalvolTarget = totalvolTarget + p.getVolTarget();
+            totalphcAOD = totalphcAOD + p.getPhcAOD();
+            totalvolAOD = totalvolAOD + p.getVolAOD();
+            totalphcAOL = totalphcAOL + p.getPhcAOL();
+            totalphcGap = totalphcGap + (p.getPhcAOL() - p.getPhcTarget());
+            totalvolGap = totalvolGap + (p.getVolAOD() - p.getVolTarget());
+
+
+        });
+
+
+        return Arrays.asList(totalphcTarget,totalvolTarget,totalphcAOD,totalvolAOD,totalphcAOL,totalphcGap,totalvolGap);
+    }
+
 
 
     public List<PhcVolSummary> allAccountsPhcVolSummary(String dm) {
@@ -410,12 +462,13 @@ public class BEService {
             totalnxtMnthOnsiteVol = totalnxtMnthOnsiteVol +p.getNxtMnthOnsiteVol();
             totalnxtMnthTotalVol = totalnxtMnthTotalVol+p.getNxtMnthTotalVol();
             totalnxtMnthPHC = totalnxtMnthPHC+p.getNxtMnthPHC();
-            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcTarget()-p.getPhcAOL());
-            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolTarget()-p.getVolAOD());
+            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcAOL()-p.getPhcTarget());
+            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolAOD()-p.getVolTarget());
             totalphccrrntvsnextmnthGap = totalphccrrntvsnextmnthGap + (p.getNxtMnthPHC()-p.getPhcAOL());
             totalvolcrrntvsnextmnthGap = totalvolcrrntvsnextmnthGap + (p.getNxtMnthTotalVol()-p.getVolAOD());
 
         });
+
 
         return Arrays.asList(totalphcTarget,totalvolTarget,totalphcAOD,totalvolAOD,totalphcAOL,totalvolAOL,totalphcTargetAOLGap,totalvolTargetAOLGap,totalnxtMnthPHC, totalnxtMnthOffshoreVol,totalnxtMnthOnsiteVol,totalnxtMnthTotalVol,totalphccrrntvsnextmnthGap,totalvolcrrntvsnextmnthGap);
     }
@@ -438,8 +491,8 @@ public class BEService {
             totalvolAOD = totalvolAOD + p.getVolAOD();
             totalphcAOL = totalphcAOL + p.getPhcAOL();
             totalvolAOL = totalvolAOL + p.getVolAOL();
-            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcTarget()-p.getPhcAOL());
-            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolTarget()-p.getVolAOD());
+            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcAOL()-p.getPhcTarget());
+            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolAOD()-p.getVolTarget());
         });
 
         return Arrays.asList(totalphcTarget,totalvolTarget,totalphcAOD,totalvolAOD,totalphcAOL,totalvolAOL,totalphcTargetAOLGap,totalvolTargetAOLGap);
@@ -463,8 +516,8 @@ public class BEService {
             totalvolAOD = totalvolAOD + p.getVolAOD();
             totalphcAOL = totalphcAOL + p.getPhcAOL();
             totalvolAOL = totalvolAOL + p.getVolAOL();
-            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcTarget()-p.getPhcAOL());
-            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolTarget()-p.getVolAOD());
+            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcAOL()-p.getPhcTarget());
+            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolAOD()-p.getVolTarget());
         });
 
         return Arrays.asList(totalphcTarget,totalvolTarget,totalphcAOD,totalvolAOD,totalphcAOL,totalvolAOL,totalphcTargetAOLGap,totalvolTargetAOLGap);
@@ -476,6 +529,14 @@ public class BEService {
         phcVolRepository.save(phcVol);
 
     }
+
+    public void putPhcVolTotals(PhcVolTotal phcVoltotal, int id) {
+        phcVolTotalRepository.save(phcVoltotal);
+
+    }
+
+
+
 
     public List<PhcVol> getPhcVolRemarks(String dm) {
         return phcVolRepository.findRemarksForGaps(dm);
@@ -498,8 +559,8 @@ public class BEService {
             totalvolAOD = totalvolAOD + p.getVolAOD();
             totalphcAOL = totalphcAOL + p.getPhcAOL();
             totalvolAOL = totalvolAOL + p.getVolAOL();
-            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcTarget()-p.getPhcAOL());
-            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolTarget()-p.getVolAOD());
+            totalphcTargetAOLGap = totalphcTargetAOLGap + (p.getPhcAOL()-p.getPhcTarget());
+            totalvolTargetAOLGap = totalvolTargetAOLGap + (p.getVolAOD()-p.getVolTarget());
         });
 
         return Arrays.asList(totalphcTarget,totalvolTarget,totalphcAOD,totalvolAOD,totalphcAOL,totalvolAOL,totalphcTargetAOLGap,totalvolTargetAOLGap);

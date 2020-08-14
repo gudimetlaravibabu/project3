@@ -80,6 +80,15 @@ public class AccountBE {
     @Column(columnDefinition = "double default 0.0")
     private double totalrtbr;
 
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthdhbe;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthbe;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double currmnthrtbr;
+
     private String m1bertbrremarks;
     private String m2bertbrremarks;
     private String m3bertbrremarks;
@@ -88,7 +97,7 @@ public class AccountBE {
 
     }
 
-    public AccountBE(int id, String da, String dm, String pm, String accountName, String accountTrack, double dhBE, double pmBE, double rtb, String remarks, String summary, boolean showSummary, boolean showTextbox, boolean showUpdatebutton, String nativecurrency, double nativediscount, double m1usdconversion, double m2usdconversion, double m3usdconversion, double m1native, double m2native, double m3native, double totalnative, double m1be, double m2be, double m3be, double totalbe, double m1rtbr, double m2rtbr, double m3rtbr, double totalrtbr, String m1bertbrremarks, String m2bertbrremarks, String m3bertbrremarks) {
+    public AccountBE(int id, String da, String dm, String pm, String accountName, String accountTrack, double dhBE, double pmBE, double rtb, String remarks, String summary, boolean showSummary, boolean showTextbox, boolean showUpdatebutton, String nativecurrency, double nativediscount, double m1usdconversion, double m2usdconversion, double m3usdconversion, double m1native, double m2native, double m3native, double totalnative, double m1be, double m2be, double m3be, double totalbe, double m1rtbr, double m2rtbr, double m3rtbr, double totalrtbr, double currmnthdhbe, double currmnthbe, double currmnthrtbr, String m1bertbrremarks, String m2bertbrremarks, String m3bertbrremarks) {
         this.id = id;
         this.da = da;
         this.dm = dm;
@@ -120,11 +129,13 @@ public class AccountBE {
         this.m2rtbr = m2rtbr;
         this.m3rtbr = m3rtbr;
         this.totalrtbr = totalrtbr;
+        this.currmnthdhbe = currmnthdhbe;
+        this.currmnthbe = currmnthbe;
+        this.currmnthrtbr = currmnthrtbr;
         this.m1bertbrremarks = m1bertbrremarks;
         this.m2bertbrremarks = m2bertbrremarks;
         this.m3bertbrremarks = m3bertbrremarks;
     }
-
 
     public int getId() {
         return id;
@@ -372,6 +383,30 @@ public class AccountBE {
 
     public void setTotalrtbr(double totalrtbr) {
         this.totalrtbr = totalrtbr;
+    }
+
+    public double getCurrmnthdhbe() {
+        return currmnthdhbe;
+    }
+
+    public void setCurrmnthdhbe(double currmnthdhbe) {
+        this.currmnthdhbe = currmnthdhbe;
+    }
+
+    public double getCurrmnthbe() {
+        return currmnthbe;
+    }
+
+    public void setCurrmnthbe(double currmnthbe) {
+        this.currmnthbe = currmnthbe;
+    }
+
+    public double getCurrmnthrtbr() {
+        return currmnthrtbr;
+    }
+
+    public void setCurrmnthrtbr(double currmnthrtbr) {
+        this.currmnthrtbr = currmnthrtbr;
     }
 
     public String getM1bertbrremarks() {

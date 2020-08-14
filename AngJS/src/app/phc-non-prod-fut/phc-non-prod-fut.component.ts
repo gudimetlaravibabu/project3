@@ -15,7 +15,7 @@ export class PhcNonProdFutComponent implements OnInit {
 
   ngOnInit() {
 
-    this.httpClient.get("be/nonprodfut")
+    this.httpClient.get("phcvol/nonprodfut")
     .subscribe(
       (response)=>
        {

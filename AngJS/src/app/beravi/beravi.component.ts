@@ -36,6 +36,7 @@ export class BeraviComponent implements OnInit {
         {
  
          this.response = response; 
+         console.log("this.response==>"+this.response);
          this.accountBE=this.response;
          //console.log("inside accounts list 1st get method :"+ this.accountBE);
          this.httpClient.get("be/data/da/total/"+this.dm+ "/" + this.da) //, {headers})

@@ -35,7 +35,9 @@ export class BenpallComponent implements OnInit {
         {
  
          this.response = response; 
+       
          this.accountBE=this.response;
+       
          //console.log("inside accounts list 1st get method :"+ this.accountBE);
          this.httpClient.get("be/data/pu/betotal/"+this.dm) //, {headers})
          //this.httpClient.get("http://localhost:8081/data/pu")

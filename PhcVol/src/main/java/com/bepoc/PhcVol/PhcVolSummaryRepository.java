@@ -17,8 +17,9 @@ public interface PhcVolSummaryRepository extends JpaRepository<PhcVolSummary, St
     public List<PhcVolSummary> findByDmOrderByAccountName(String dm);
     public List<PhcVolSummary> findByAccountNameAndDm(String accountName, String dm);
 
+
     @Modifying
-    @Query(value = "update Phc_Vol_Summary A, (select account_Name, Sum(phc_Target) Spt, Sum(vol_Target) Svt, Sum(phcAOD) Spd, sum(volAOD) Svd, sum(phcAOL) Spl, sum(volAOL) Svl from Phc_Vol where account_Name=:account_Name and dm=:dm group by account_Name) B set A.phc_target=B.Spt, A.vol_target=B.Svt,  A.phcaod=B.Spd, A.volaod=B.Svd, A.phcaol=B.Spl, A.volaol=B.Svl where A.account_Name=:account_Name and A.dm=:dm",nativeQuery = true)
+    @Query(value = "update Phc_Vol_Summary A, (select account_Name, group_concat(distinct remarks order by remarks desc separator '\n') rmks, Sum(phc_Target) Spt, Sum(vol_Target) Svt, Sum(phcAOD) Spd, sum(volAOD) Svd, sum(phcAOL) Spl, sum(volAOL) Svl from Phc_Vol where account_Name=:account_Name and dm=:dm group by account_Name) B set A.phc_target=B.Spt, A.vol_target=B.Svt,  A.phcaod=B.Spd, A.volaod=B.Svd, A.phcaol=B.Spl, A.volaol=B.Svl, A.remarks=B.rmks where A.account_Name=:account_Name and A.dm=:dm",nativeQuery = true)
     public void updatePhcVolSummaryDB(@Param("account_Name") String account_Name, @Param("dm") String dm);
 
     @Modifying

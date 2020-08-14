@@ -1,5 +1,6 @@
 package com.bepoc.BestEstimate;
 
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -67,7 +68,9 @@ public class BEService {
 
     public List<AccountBE> getBESummary(String dm)  {
 
-        return accountBERepository.findByDmOrderByAccountName(dm);
+       return accountBERepository.findByDmOrderByAccountName(dm);
+
+
     }
 
 
@@ -96,15 +99,15 @@ public class BEService {
                     dhRTBR.setAccountDu(row.getCell(3).getStringCellValue());
                 if(row.getCell(4)!=null)
                     dhRTBR.setDa(row.getCell(4).getStringCellValue());
-                if(row.getCell(9)!=null);
+                if(row.getCell(9, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
                     dhRTBR.setdHBE((double)row.getCell(9).getNumericCellValue());
-                if(row.getCell(17)!=null)
+                if(row.getCell(17, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
                         dhRTBR.setrTBR((double)row.getCell(17).getNumericCellValue());
-                if(row.getCell(10)!=null)
+                if(row.getCell(10,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
                     dhRTBR.setM1rtbr((double)row.getCell(10).getNumericCellValue());
-                if(row.getCell(15)!=null)
+                if(row.getCell(15,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
                     dhRTBR.setM2rtbr((double)row.getCell(15).getNumericCellValue());
-                if(row.getCell(16)!=null)
+                if(row.getCell(16,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
                     dhRTBR.setM3rtbr((double)row.getCell(16).getNumericCellValue());
 
 
@@ -286,7 +289,7 @@ public class BEService {
 
         if (mappedDMBES.isEmpty()) {
             mappedDMBE.forEach((i,j) -> {
-                accountSummaryRepository.insertPhcVolSummaryDB(j, dm);
+                accountSummaryRepository.insertAccountBESummaryDB(j, dm);
             });
         }
         else
@@ -295,7 +298,7 @@ public class BEService {
                 mappedDMBES.forEach((k, v) ->
                 {
                     if (i.equals(k) && j.equals(v) && i.contains(dm)) {
-                        accountSummaryRepository.updatePhcVolSummaryDB(v, dm);
+                        accountSummaryRepository.updateAccountBESummaryDB(v, dm);
                     }
                 });
             });

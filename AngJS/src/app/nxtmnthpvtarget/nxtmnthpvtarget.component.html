@@ -7,14 +7,14 @@
                         <th scope="col">#</th>
                         <th scope="col">Account</th>
                         <th scope="col">Track</th>
-                        <th scope="col">CurrentPHC<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
-                        <th scope="col">CurrentVOL</th>
-                        <th scope="col">NextMonthPHC</th>
-                        <th scope="col">NextMonthOffshoreVol</th>
-                        <th scope="col">NextMonthOnsiteVol</th>
-                        <th scope="col">NextMonthTotalVol</th>
-                        <th scope="col">Next minus current PHC gap</th>
-                        <th scope="col">Next minus current Vol gap</th>
+                        <th scope="col">CurrPHC<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
+                        <th scope="col">CurrVOL</th>
+                        <th scope="col">NxtMnthPHC</th>
+                        <th scope="col">NxtMnthOffVol</th>
+                        <th scope="col">NxtMnthOnsVol</th>
+                        <th scope="col">NxtMnthTotalVol</th>
+                        <th scope="col">PHC gap</th>
+                        <th scope="col">Vol gap</th>
                         <th scope="col">Remarks</th>
                         <th scope="col">Edit</th>
                       </tr>
@@ -65,12 +65,14 @@
                         <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
                       
                       </tr>
+
+                      
                      <tr>
                           <td scope="row"></td>
                           <td scope="row">Total</td>
                           <td scope="row"></td>
                           <td scope="row">{{totalPV[4]}}</td>
-                          <td scope="row">{{totalPV[5] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totalPV[3] | number:'1.2-2' }}</td>
                           <td scope="row">{{totalPV[8]}}</td>
                           <td scope="row">{{totalPV[9] | number:'1.2-2' }}</td>
                           <td scope="row">{{totalPV[10]}}</td>

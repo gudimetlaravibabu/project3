@@ -17,10 +17,15 @@ public interface AccountBERepository extends JpaRepository<AccountBE, Integer> {
    public List<AccountBE> findByAccountName(String accountName);
    public List<AccountBE> findByPmOrderByAccountName(String pm);
    public List<AccountBE> findByDmAndDaOrderByAccountName(String dm, String da);
-   public List<AccountBE> findByDmOrderByAccountName(String dm);
+    public List<AccountBE> findByDmOrderByAccountName(String dm);
 
-   @Query(value="select * from AccountBE where account_Name = :account_Name and account_Track= :account_Track", nativeQuery = true)
-   public AccountBE findAccountNameAccountTrack(@Param("account_Name") String account_Name, @Param("account_Track") String account_Track);
+
+    @Query(value="select * from AccountBE where account_Name = :account_Name and account_Track= :account_Track", nativeQuery = true)
+    public AccountBE findAccountNameAccountTrack(@Param("account_Name") String account_Name, @Param("account_Track") String account_Track);
+
+   // select account_name, account_track, sum(dhbe), sum(pmbe), sum(rtb),group_concat(distinct remarks order by remarks desc separator '\n') from AccountBE  where account_Name = 'AUSGRID' and dm='NP' group by account_Name, account_Track;
+    @Query(value="select account_name, account_track, sum(dhbe) dhbe, sum(pmbe) pmbe, sum(rtb) rtb,group_concat(distinct remarks order by remarks desc separator '\\n') remarks from AccountBE where dm = :dm group by account_Name, account_Track", nativeQuery = true)
+   public List<Object[]> findByDmOrderByAccountNameGroupByAccountTrack(@Param("dm") String dm);
 
    @Query(value="SELECT distinct(account_Name) from AccountBE", nativeQuery = true)
    public List<String> findAllAccountsBE();
