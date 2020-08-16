@@ -1,7 +1,7 @@
 <div class="card">
   <div class="form-group">
       <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-          <table #table class="table table-sm table-striped table-dark ea_table">
+          <table #table class="table table-condensed ea_table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -33,12 +33,12 @@
                       
 
                       <td scope="row">
-                        <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text appOnlynumber required [(ngModel)]="phcTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                        <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text appOnlynumber required style="width:50px" [(ngModel)]="phcTarget[i]" (change)="updateAcntBENPBE(i)"></p>
                         <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{acntPV.phcTarget}}</p>
                         <p *ngIf="!showTextbox[i]">{{acntPV.phcTarget}}</p>
                       </td>
                       <td scope="row">
-                        <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text [(ngModel)]="volTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                        <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text style="width:50px" [(ngModel)]="volTarget[i]" (change)="updateAcntBENPBE(i)"></p>
                         <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{acntPV.volTarget}}</p>
                         <p *ngIf="!showTextbox[i]">{{acntPV.volTarget}}</p>
                       </td>

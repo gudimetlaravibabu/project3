@@ -27,10 +27,28 @@ public class AccountSummary implements Serializable {
     @Column(columnDefinition = "double default 0.0")
     private double currmnthrtbr;
 
+    @Column(columnDefinition = "double default 0.0")
+    private double m1be;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double m2be;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double m3be;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double m1rtbr;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double m2rtbr;
+
+    @Column(columnDefinition = "double default 0.0")
+    private double m3rtbr;
+
     public AccountSummary() {
     }
 
-    public AccountSummary(String accountName, String dm, String da, double dhBE, double pmBE, double rtb, String remarks, double currmnthdhbe, double currmnthbe, double currmnthrtbr) {
+    public AccountSummary(String accountName, String dm, String da, double dhBE, double pmBE, double rtb, String remarks, double currmnthdhbe, double currmnthbe, double currmnthrtbr, double m1be, double m2be, double m3be, double m1rtbr, double m2rtbr, double m3rtbr) {
         this.accountName = accountName;
         this.dm = dm;
         this.da = da;
@@ -41,6 +59,12 @@ public class AccountSummary implements Serializable {
         this.currmnthdhbe = currmnthdhbe;
         this.currmnthbe = currmnthbe;
         this.currmnthrtbr = currmnthrtbr;
+        this.m1be = m1be;
+        this.m2be = m2be;
+        this.m3be = m3be;
+        this.m1rtbr = m1rtbr;
+        this.m2rtbr = m2rtbr;
+        this.m3rtbr = m3rtbr;
     }
 
     public String getAccountName() {
@@ -121,5 +145,53 @@ public class AccountSummary implements Serializable {
 
     public void setCurrmnthrtbr(double currmnthrtbr) {
         this.currmnthrtbr = currmnthrtbr;
+    }
+
+    public double getM1be() {
+        return m1be;
+    }
+
+    public void setM1be(double m1be) {
+        this.m1be = m1be;
+    }
+
+    public double getM2be() {
+        return m2be;
+    }
+
+    public void setM2be(double m2be) {
+        this.m2be = m2be;
+    }
+
+    public double getM3be() {
+        return m3be;
+    }
+
+    public void setM3be(double m3be) {
+        this.m3be = m3be;
+    }
+
+    public double getM1rtbr() {
+        return m1rtbr;
+    }
+
+    public void setM1rtbr(double m1rtbr) {
+        this.m1rtbr = m1rtbr;
+    }
+
+    public double getM2rtbr() {
+        return m2rtbr;
+    }
+
+    public void setM2rtbr(double m2rtbr) {
+        this.m2rtbr = m2rtbr;
+    }
+
+    public double getM3rtbr() {
+        return m3rtbr;
+    }
+
+    public void setM3rtbr(double m3rtbr) {
+        this.m3rtbr = m3rtbr;
     }
 }

@@ -93,6 +93,7 @@ export class AccountsTileComponent implements OnInit {
   updateDB(){
 
     this.accountBE.forEach((p)=>{
+      p.showTextbox = false;
       
       if(p.showTextbox)
       {

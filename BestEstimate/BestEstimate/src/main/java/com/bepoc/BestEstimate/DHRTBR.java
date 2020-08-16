@@ -21,13 +21,14 @@ public class DHRTBR {
     private double m1rtbr;
     private double m2rtbr;
     private double m3rtbr;
+    private double currmnthdhbe;
 
     public DHRTBR()
     {
 
     }
 
-    public DHRTBR(int id, String accountName, String accountTrack, String accountDu, String dm, String da, double dHBE, double rTBR, double m1rtbr, double m2rtbr, double m3rtbr) {
+    public DHRTBR(int id, String accountName, String accountTrack, String accountDu, String dm, String da, double dHBE, double rTBR, double m1rtbr, double m2rtbr, double m3rtbr, double currmnthdhbe) {
         this.id = id;
         this.accountName = accountName;
         this.accountTrack = accountTrack;
@@ -39,6 +40,7 @@ public class DHRTBR {
         this.m1rtbr = m1rtbr;
         this.m2rtbr = m2rtbr;
         this.m3rtbr = m3rtbr;
+        this.currmnthdhbe = currmnthdhbe;
     }
 
     public int getId() {
@@ -127,5 +129,13 @@ public class DHRTBR {
 
     public void setM3rtbr(double m3rtbr) {
         this.m3rtbr = m3rtbr;
+    }
+
+    public double getCurrmnthdhbe() {
+        return currmnthdhbe;
+    }
+
+    public void setCurrmnthdhbe(double currmnthdhbe) {
+        this.currmnthdhbe = currmnthdhbe;
     }
 }

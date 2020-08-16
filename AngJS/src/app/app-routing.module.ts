@@ -55,13 +55,18 @@ import { NbrraviComponent } from './nbrravi/nbrravi.component';
 import { NbrprashantComponent } from './nbrprashant/nbrprashant.component';
 import { NbrsaradaComponent } from './nbrsarada/nbrsarada.component';
 import { CurrconvComponent } from './currconv/currconv.component';
+import { M1currconvComponent } from './m1currconv/m1currconv.component';
+import { M2currconvComponent } from './m2currconv/m2currconv.component';
+import { M3currconvComponent } from './m3currconv/m3currconv.component';
+import { M1actualsComponent } from './m1actuals/m1actuals.component';
+import { M2actualsComponent } from './m2actuals/m2actuals.component';
+import { M3actualsComponent } from './m3actuals/m3actuals.component';
 
 
 const routes: Route[] = [
 {path: '', redirectTo: '/allphcvoltotal', pathMatch: 'full', canActivate:[AuthGaurdService]},
 {path: 'allaccounts', component: AllAccountsComponent, canActivate:[AuthGaurdService]},
-{
-  path: 'allaccountspu', 
+{path: 'allaccountspu', 
   component: AllAccountsListComponent, 
   children:[
     {path: 'beamit', component: BeamitComponent, canActivate:[AuthGaurdService]},
@@ -86,8 +91,7 @@ const routes: Route[] = [
 //{path: 'Ravi', component: Pm2accountComponent, canActivate:[AuthGaurdService]},
 //{path: 'Deepa', component: Pm3accountComponent, canActivate:[AuthGaurdService]},
 //{path: 'Purnima', component: Pm4accountComponent, canActivate:[AuthGaurdService]},
-{
-  path: 'allphcvol', 
+{path: 'allphcvol', 
   component: PhcvolaccountdmComponent,
   children:[
     {path: 'phcvolaccountamit', component: PhcvolaccountamitComponent, canActivate:[AuthGaurdService]},
@@ -97,8 +101,7 @@ const routes: Route[] = [
     {path: 'phcvolaccountmukul', component: PhcvolaccountmukulComponent, canActivate:[AuthGaurdService]}
   ]  
 },
-{
-  path: 'allphcvolpu', 
+{path: 'allphcvolpu', 
   component: AllphcvolComponent, 
   children:[
     {path: 'pvamit', component: PvamitComponent, canActivate:[AuthGaurdService]},
@@ -117,8 +120,7 @@ const routes: Route[] = [
     {path: 'pvmukul', component: PvmukulComponent, canActivate:[AuthGaurdService]}
   ]  
 },
-{
-  path: 'phcfuture', 
+{path: 'phcfuture', 
   component: PhcFutComponent,
   children:[
     {path: 'PHCProdFuture', component: PhcProdFutComponent, canActivate:[AuthGaurdService]},
@@ -127,32 +129,40 @@ const routes: Route[] = [
 },
 {path: 'allphcvolpuremarks', component: AllPhcVolRemarksComponent, canActivate:[AuthGaurdService]},
 {path: 'allphcvoltotal', component: AllPhcVolTotalComponent, canActivate:[AuthGaurdService]},
-{
-  path: 'loadmasterdata', 
+{path: 'loadmasterdata', 
   component: LoadMasterDataComponent, 
   children:[
     {path: 'dhrtbr', component: DhRtbrComponent, canActivate:[AuthGaurdService]},
     {path: 'volumetoday', component: VolumeTodayComponent, canActivate:[AuthGaurdService]},
     {path: 'phctodaylwd', component: PhcTodayLWDComponent, canActivate:[AuthGaurdService]},
     {path: 'phcvoltarget', component: PhcVolTargetComponent, canActivate:[AuthGaurdService]},
-    {path: 'currconversion', component: CurrconvComponent, canActivate:[AuthGaurdService]}
+    {path: 'addAcnt', component: AddAccountComponent, canActivate:[AuthGaurdService]},
+    {path: 'currconversion', 
+     component: CurrconvComponent, 
+     children:[
+      {path: 'm1currconv', component: M1currconvComponent, canActivate:[AuthGaurdService]},
+      {path: 'm2currconv', component: M2currconvComponent, canActivate:[AuthGaurdService]},
+      {path: 'm3currconv', component: M3currconvComponent, canActivate:[AuthGaurdService]},
+      {path: 'm1actuals', component: M1actualsComponent, canActivate:[AuthGaurdService]},
+      {path: 'm2actuals', component: M2actualsComponent, canActivate:[AuthGaurdService]},
+      {path: 'm3actuals', component: M3actualsComponent, canActivate:[AuthGaurdService]},
+    ]
+    }
   ]
 },
-{path: 'addAcnt', component: AddAccountComponent, canActivate:[AuthGaurdService]},
 {path: 'nxtmnthpvtarget', component: NxtmnthpvtargetComponent, canActivate:[AuthGaurdService]},
-{
-  path: 'nbrnp', 
-  component: NbrnpComponent, 
-  children:[
-    {path: 'nbrnpall', component: NbrnpallComponent, canActivate:[AuthGaurdService]},
-    {path: 'nbrravi', component: NbrraviComponent, canActivate:[AuthGaurdService]},
-    {path: 'nbrprashant', component: NbrprashantComponent, canActivate:[AuthGaurdService]},
-    {path: 'nbrsarada', component: NbrsaradaComponent, canActivate:[AuthGaurdService]}
-  ]
-},
-{path: 'login', component: LoginComponent},
-{path: 'logout', component: LogoutComponent, canActivate:[AuthGaurdService]}
-
+{path: 'nbrnp', 
+      component: NbrnpComponent, 
+      children:[
+        {path: 'nbrnpall', component: NbrnpallComponent, canActivate:[AuthGaurdService]},
+        {path: 'nbrravi', component: NbrraviComponent, canActivate:[AuthGaurdService]},
+        {path: 'nbrprashant', component: NbrprashantComponent, canActivate:[AuthGaurdService]},
+        {path: 'nbrsarada', component: NbrsaradaComponent, canActivate:[AuthGaurdService]}
+      ]
+ },
+ {path: 'login', component: LoginComponent},
+ {path: 'logout', component: LogoutComponent, canActivate:[AuthGaurdService]}
+];
 /*{
   path: 'pm', 
   component: PMAccountComponent,
@@ -162,7 +172,7 @@ const routes: Route[] = [
     {path: 'pmall', component: AllAccountsListComponent},
   ]
 }*/
-];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="table-responsive form-group">
         <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-            <table #table class="table table-sm table-striped table-dark ea_table">
+            <table #table class="table table-condensed ea_table">
                     <thead>
                       <tr>
                         
@@ -29,22 +29,22 @@
 
 
                          <td scope="row">
-                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text appOnlynumber required [(ngModel)]="phcTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="phcTarget[i]" (change)="updateAcntBENPBE(i)"></p>
                           <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{totPV.phcTarget}}</p>
                           <p *ngIf="!showTextbox[i]">{{totPV.phcTarget}}</p>
                         </td>
                         <td scope="row">
-                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text [(ngModel)]="volTarget[i]" (change)="updateAcntBENPBE(i)"></p>
-                          <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{totPV.volTarget | number:'1.2-2'}}</p>
-                          <p *ngIf="!showTextbox[i]">{{totPV.volTarget | number:'1.2-2'}}</p>
+                          <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text style="width:50px" [(ngModel)]="volTarget[i]" (change)="updateAcntBENPBE(i)"></p>
+                          <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{totPV.volTarget | number:'1.1-1'}}</p>
+                          <p *ngIf="!showTextbox[i]">{{totPV.volTarget | number:'1.1-1'}}</p>
                         </td>
   
 
-                            <td scope="row">{{totPV.phcAOD}}</td>
-                            <td scope="row">{{totPV.volAOD | number:'1.2-2' }}</td>
+                            <td scope="row">{{totPV.phcAOD | number }}</td>
+                            <td scope="row">{{totPV.volAOD | number:'1.1-1' }}</td>
                             <td scope="row">{{totPV.phcAOL}}</td>
                             <td scope="row">{{totPV.phcGap}}</td>
-                            <td scope="row">{{totPV.volGap | number:'1.2-2' }}</td>
+                            <td scope="row">{{totPV.volGap | number:'1.1-1' }}</td>
                             <td scope="row">
                               <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
       
@@ -59,18 +59,18 @@
                           
                           <td scope="row">Total</td>
                           <td scope="row">{{totaldmpv[0]}}</td>
-                          <td scope="row">{{totaldmpv[1] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totaldmpv[1] | number:'1.1-1' }}</td>
                           <td scope="row">{{totaldmpv[2]}}</td>
-                          <td scope="row">{{totaldmpv[3] | number:'1.2-2' }}</td>
+                          <td scope="row">{{totaldmpv[3] | number:'1.1-1' }}</td>
                           <td scope="row">{{totaldmpv[4]}}</td>
                           
                           <td scope="row">{{totaldmpv[5]}}</td>
-                          <td scope="row">{{totaldmpv[6] | number:'1.2-2'}}</td>
+                          <td scope="row">{{totaldmpv[6] | number:'1.1-1'}}</td>
                           
                           <td scope="row"></td>
                           <td scope="row"></td>
   
-                      </tr> -->
+                      </tr> 
                 
                     </tbody>
               

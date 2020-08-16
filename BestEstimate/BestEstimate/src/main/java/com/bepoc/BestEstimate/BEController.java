@@ -85,7 +85,7 @@ public class BEController {
 
     }
 
-    @RequestMapping("/all")
+ /*   @RequestMapping("/all")
     public List<Object> getTotalsSummary()  {
 
         return beservice.getTotalsSummary();
@@ -121,16 +121,23 @@ public class BEController {
 
     }
 
-    @RequestMapping("/test/{p}/{q}")
+   /* @RequestMapping("/test/{p}/{q}")
     public AccountBE test(@PathVariable String p, @PathVariable String q) throws IOException {
         return beservice.test(p,q);
 
-    }
+    } */
 
 
     @RequestMapping("/currconv/{month}")
     public List<AccountBE> updateCurrConv(@PathVariable String month)  {
         return beservice.updateCurrConv(month);
+
+    }
+
+
+    @RequestMapping("/actuals/{month}")
+    public List<AccountBE> updateActuals(@PathVariable String month)  {
+        return beservice.updateActuals(month);
 
     }
 

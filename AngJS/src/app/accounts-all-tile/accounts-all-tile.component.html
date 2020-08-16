@@ -1,7 +1,7 @@
 <div class="card">
         <div class="table-responsive form-group">
             <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-                <table #table class="table table-sm table-striped table-dark ea_table">
+                <table #table class="table table-condensed ea_table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -42,31 +42,31 @@
 
                         <td scope="row">{{acntSummary.pmBE-acntSummary.rtb | number:'1.1-1' }}</td>
 
-                        <td scope="row" >{{acntSummary.remarks}}</td>
-                        <th scope="col">{{acntSummary.currmnthdhbe | number:'1.1-1'}}</th>
-                        <th scope="col">{{acntSummary.currmnthbe | number:'1.1-1'}}</th>
-                        <th scope="col">{{acntSummary.currmnthrtbr | number:'1.1-1'}}</th>
+                        <td scope="row">{{acntSummary.remarks}}</td>
+                        <td scope="row">{{acntSummary.currmnthdhbe | number:'1.1-1'}}</td>
+                        <td scope="row">{{acntSummary.m2be | number:'1.1-1'}}</td>
+                        <td scope="row">{{acntSummary.m2rtbr | number:'1.1-1'}}</td>
                         
                         
                       </tr>
-                      
-                     <tr>
+                      <tr>
                          
-                          <td scope="row" ></td>
-                          <td scope="row" >Total</td>
-                          <td scope="row">{{totalBE[0] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totalBE[5] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totalBE[6] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totalBE[2] | number:'1.1-1' }}</td> 
-                          <td scope="row">{{totalBE[3] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totalBE[4] | number:'1.1-1' }}</td>
-                          <td scope="row"></td>
-                          <td scope="row"></td>
-                          <td scope="row"></td>
-                          <td scope="row"></td>
-                         
-
-                      </tr> 
+                            <th scope="col"></th>
+                            <th scope="col">Total</th>
+                            <th scope="col">{{totalBE[0] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[5] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[6] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[2] | number:'1.1-1' }}</th> 
+                            <th scope="col">{{totalBE[3] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[4] | number:'1.1-1' }}</th>
+                            <th scope="col"></th>
+                            <th scope="col">{{totalBE[7] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[9] | number:'1.1-1' }}</th>
+                            <th scope="col">{{totalBE[12] | number:'1.1-1' }}</th>
+                           
+  
+                        </tr> 
+                 
                     
                     </tbody>
               

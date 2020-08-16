@@ -1,0 +1,33 @@
+.ea_table {
+    border: 1px solid #ddd;
+    display: block;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    float: left;
+    height:auto;
+    width: 100%;
+  }
+  
+  .ea_table tbody, thead {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  
+  .ea_table tr {
+    display: flex;
+  }
+  
+   
+  .ea_table th, .ea_table td {
+    width : 10px;
+    text-align: center;
+    font-size: 0.75rem;
+    //padding: 1.5rem;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid goldenrod; 
+  }
+  
+  
+  

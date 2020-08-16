@@ -1,7 +1,7 @@
 <div class="card">
     <div class="table-responsive form-group">
         <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-            <table #table class="table table-sm table-striped table-dark ea_table">
+            <table #table class="table table-condensed ea_table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -72,8 +72,8 @@
                        <!-- <td scope="row"><input type="checkbox" (click)="toggleSummary(i); toggleTextbox(i); toggleUpdatebutton()"> </td> -->
 
 
-                        <td scope="row">  
-                          <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:100px" text-align='left' class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
+                        <td scope="row" text-align='left'>  
+                          <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:80px" text-align='left' class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
   
                           <p *ngIf="!showTextbox[i]">{{acntBE.remarks}}</p>
                         </td>
@@ -82,8 +82,8 @@
                         <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
 
                         <td scope="row">{{acntBE.currmnthdhbe | number:'1.1-1'}}</td>
-                        <td scope="row">{{acntBE.currmnthbe | number:'1.1-1'}}</td>
-                        <td scope="row">{{acntBE.currmnthrtbr | number:'1.1-1'}}</td>
+                        <td scope="row">{{acntBE.m2be | number:'1.1-1'}}</td>
+                        <td scope="row">{{acntBE.m2rtbr | number:'1.1-1'}}</td>
                         
                         
                       </tr>
@@ -102,9 +102,9 @@
                           <td scope="row"></td>
                           
                           <td scope="row"></td>
-                          <td scope="row"></td>
-                          <td scope="row"></td>
-                          <td scope="row"></td>
+                          <td scope="row">{{totalBE[7] | number:'1.1-1' }}</td>
+                          <td scope="row">{{totalBE[9] | number:'1.1-1' }}</td>
+                          <td scope="row">{{totalBE[12] | number:'1.1-1' }}</td>
 
                       </tr> 
                     </tbody>

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="form-group">
         <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-            <table #table class="table table-sm table-striped table-dark ea_table">
+            <table #table class="table table-condensed ea_table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -29,9 +29,9 @@
                         <td scope="row">{{acntPV.accountTrack}}</td>
                         
   
-                        <td scope="row">{{acntPV.phcAOL | number:'1.2-2'}}</td>
+                        <td scope="row">{{acntPV.phcAOL | number:'1.1-1'}}</td>
 
-                        <td scope="row">{{acntPV.volAOD | number:'1.2-2'}}</td>
+                        <td scope="row">{{acntPV.volAOD | number:'1.1-1'}}</td>
   
                       
                         <td scope="row">
@@ -39,11 +39,11 @@
                             <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthPHC}}</p>
                         </td>
                         <td scope="row">
-                                <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="nxtMnthOffshoreVol[i]" (change)="updateAcntBENPBE(i)"></p>
+                                <p *ngIf="showTextbox[i]"><input type=text style="width:50px" [(ngModel)]="nxtMnthOffshoreVol[i]" (change)="updateAcntBENPBE(i)"></p>
                                 <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthOffshoreVol}}</p>
                             </td>
                         <td scope="row">
-                            <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlynumber required [(ngModel)]="nxtMnthOnsiteVol[i]" (change)="updateAcntBENPBE(i)"></p>
+                            <p *ngIf="showTextbox[i]"><input type=text style="width:50px" [(ngModel)]="nxtMnthOnsiteVol[i]" (change)="updateAcntBENPBE(i)"></p>
                             <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthOnsiteVol}}</p>
                         </td>
                         

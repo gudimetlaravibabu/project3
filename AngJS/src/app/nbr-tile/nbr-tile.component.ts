@@ -5,6 +5,7 @@ import { TruncatePipe } from '../truncate.pipe';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
+import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class NbrTileComponent implements OnInit {
   showTextbox:boolean[] = [];
   showUpdatebutton : boolean[] = [];
   showUpdatebuttonflag : boolean = false;
+  chkbox : boolean = false;
 
   nativecurrency : string[]=[];
   nativediscount : number[]=[];
@@ -48,7 +50,7 @@ export class NbrTileComponent implements OnInit {
 
   url:string;
       
-  constructor(private httpClient: HttpClient, private truncatePipe:TruncatePipe, private router: Router) { 
+  constructor(private httpClient: HttpClient, private truncatePipe:TruncatePipe, private router: Router, private loginService:AuthenticationService) { 
  
   }
 
@@ -82,11 +84,11 @@ export class NbrTileComponent implements OnInit {
       this.m1be[i] = this.accountBE[i].m1be;
       this.m2be[i] = this.accountBE[i].m2be;
       this.m3be[i] = this.accountBE[i].m3be;
-      this.totalbe[i] = this.accountBE[i].totalbe;
+    //  this.totalbe[i] = this.accountBE[i].totalbe;
       this.m1rtbr[i] = this.accountBE[i].m1rtbr;
       this.m2rtbr[i] = this.accountBE[i].m2rtbr;
       this.m3rtbr[i] = this.accountBE[i].m3rtbr;
-      this.totalrtbr[i] = this.accountBE[i].totalrtbr;
+    //  this.totalrtbr[i] = this.accountBE[i].totalrtbr;
       this.m1bertbrremarks[i] = this.accountBE[i].m1bertbrremarks;
       this.m2bertbrremarks[i] = this.accountBE[i].m2bertbrremarks;
       this.m3bertbrremarks[i] = this.accountBE[i].m3bertbrremarks;
@@ -129,6 +131,8 @@ export class NbrTileComponent implements OnInit {
     this.accountBE[i].nativecurrency =this.nativecurrency[i];
     this.accountBE[i].nativediscount=this.nativediscount[i];
     this.accountBE[i].m1native=this.m1native[i];
+    //this.accountBE[i].m1native=this.m1rtbr[i] * (1 / this.m1usdconversion[i]);
+
     this.accountBE[i].m2native=this.m2native[i];
     this.accountBE[i].m3native=this.m3native[i];
     this.accountBE[i].m1usdconversion=this.m1usdconversion[i];
@@ -137,6 +141,7 @@ export class NbrTileComponent implements OnInit {
     this.accountBE[i].totalnative=this.totalnative[i];
 //    this.m1usdconversion[i]=2;
     this.m1be[i] = (this.m1native[i]-(this.m1native[i] * this.nativediscount[i]*0.01))*(this.m1usdconversion[i]);
+//    this.m1be[i] = this.m1rtbr[i];
     this.m2be[i] = (this.m2native[i]-(this.m2native[i] * this.nativediscount[i]*0.01))*(this.m2usdconversion[i]);
     this.m3be[i] = (this.m3native[i]-(this.m3native[i] * this.nativediscount[i]*0.01))*(this.m3usdconversion[i]);
     
@@ -144,11 +149,11 @@ export class NbrTileComponent implements OnInit {
     this.accountBE[i].m2be=this.m2be[i];
     this.accountBE[i].m3be=this.m3be[i];
     this.accountBE[i].pmBE = this.m1be[i] + this.m2be[i] + this.m3be[i];
-    this.accountBE[i].totalbe=this.totalbe[i];
+   // this.accountBE[i].totalbe=this.m1be[i] + this.m2be[i] + this.m3be[i];
     this.accountBE[i].m1rtbr=this.m1rtbr[i];
     this.accountBE[i].m2rtbr=this.m2rtbr[i];
     this.accountBE[i].m3rtbr=this.m3rtbr[i];
-    this.accountBE[i].totalrtbr=this.totalrtbr[i];
+   // this.accountBE[i].totalrtbr=this.totalrtbr[i];
     this.accountBE[i].m1bertbrremarks=this.m1bertbrremarks[i];
     this.accountBE[i].m2bertbrremarks=this.m2bertbrremarks[i];
     this.accountBE[i].m3bertbrremarks=this.m3bertbrremarks[i];
@@ -217,6 +222,14 @@ export class NbrTileComponent implements OnInit {
     
   }
 
+/*  toggleCheckbox()
+  {
+
+   
+      this.chkbox = !this.chkbox;
+
+      
+  } */
 
 
   ExportTOExcel()

@@ -12,7 +12,7 @@ export class LoadMasterDataComponent implements OnInit {
     {label:"VolumeToday", url:"volumetoday"},
     {label:"PhcTodayLWD", url:"phctodaylwd"},
     {label:"PhcVolumeTarget", url:"phcvoltarget"},
-    {label:"updateCurrConversion", url:"currconversion"}
+    {label:"Apply CurrConv/BEActuals", url:"currconversion"}
   ]
 
 

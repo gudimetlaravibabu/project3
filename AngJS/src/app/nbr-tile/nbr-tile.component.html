@@ -1,7 +1,7 @@
+<p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p>
+            
 
-            <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
-
-            <section class="content-area">
+        <section class="content-area">
             <div class="table-area">
                 <table class="responsive-table table-bordered table-condensed auto-w">
 
@@ -10,7 +10,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Acnt</th>
                             <th scope="col">Track</th>
-                        <!--    <th scope="col">Nat Cur</th> -->
+                            <th scope="col">Curr(N)</th>
+                            <th scope="col">Disc(N)</th>
                             <th scope="col">M1N<a *ngIf="showUpdatebuttonflag"><input type="button" value="update" (click)="updateDB()"></a></th>
                             <th scope="col">M1B</th>
                             <th scope="col">M1R</th>
@@ -26,7 +27,9 @@
                             <th scope="col">M3R</th>
                             <th scope="col">M3(B-R)</th>
                             <th scope="col"></th>
-                            <th scope="col">Edit</th>
+                            <th scope="col">TotB</th>
+                            <th scope="col">TotR</th>
+                            <th scope="col"><a (click)="toggleCheckbox()">Edit</a></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -34,11 +37,21 @@
                             <td scope="row">{{i+1}}</td>
                             <td scope="row">{{acntBE.accountName}}</td>
                             <td scope="row">{{acntBE.accountTrack}}</td>
-                          <!--  <td scope="row">
-                                    <p *ngIf="showTextbox[i]"><input type=text style="width:50px" [(ngModel)]="nativecurrency[i]" (change)="updateAcntBENPBE(i)"></p>
+
+
+                            <td scope="row">
+                                    <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text style="width:30px" [(ngModel)]="nativecurrency[i]" (change)="updateAcntBENPBE(i)"></p>
+                                    <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{acntBE.nativecurrency}}</p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.nativecurrency}}</p>
                             </td>
-                            <td scope="row"> {{acntBE.nativecurrency}}   </td> 
+
+                            <td scope="row">
+                                        <p *ngIf="showTextbox[i] && loginService.isAdmin()"><input type=text style="width:30px" [(ngModel)]="nativediscount[i]" (change)="updateAcntBENPBE(i)"></p>
+                                        <p *ngIf="showTextbox[i] && !loginService.isAdmin()">{{acntBE.nativediscount}}</p>
+                                        <p *ngIf="!showTextbox[i]">{{acntBE.nativediscount}}</p>
+                                
+                           </td>
+                          <!--  <td scope="row"> {{acntBE.nativecurrency}}   </td> 
                                  <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text  style="width:50px" appOnlydouble required [(ngModel)]="nativediscount[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.nativediscount}}</p>
@@ -46,28 +59,34 @@
 
                             <td scope="row"> {{acntBE.nativediscount | number:'1.2-2'}}   </td> -->
 
-                            <td scope="row">
+                         <!--   <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m1native[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m1native | number:'1.1-1'}}</p>
                             </td>
-                          <!--  <td scope="row">
+
+                            
+
+                            <td scope="row">
                                     <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m1be[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m1be}}</p>
                                   
 
                             </td>  -->
 
+                            <td>{{acntBE.m1native | number:'1.1-1'}}</td>
                             <td scope="row"> {{acntBE.m1be | number:'1.1-1'}}   </td>
                             <td scope="row"> {{acntBE.m1rtbr | number:'1.1-1'}}   </td>
                             <td scope="row"> {{acntBE.m1be-acntBE.m1rtbr | number:'1.1-1'}}   </td>
-                            <td scope="row">
+                           <!-- <td scope="row">
                                     <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M1 Remarks" [(ngModel)]="m1bertbrremarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
             
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m1bertbrremarks}}</p>
-                            </td>
+                            </td> -->
+
+                            <td>{{acntBE.m1bertbrremarks}}</td>
 
                             <td scope="row">
-                                    <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m2native[i]" (change)="updateAcntBENPBE(i)"></p>
+                                    <p *ngIf="showTextbox[i]"><input type=text style="width:30px" [(ngModel)]="m2native[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m2native | number:'1.1-1'}}</p>
                             </td>
                          <!--   <td scope="row">
@@ -84,14 +103,14 @@
 
                             <td scope="row"> {{acntBE.m2be-acntBE.m2rtbr | number:'1.1-1'}}   </td>
                             <td scope="row">
-                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M2 Remarks" [(ngModel)]="m2bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
+                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:55px" class="e-input" placeholder="M2 Remarks" [(ngModel)]="m2bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
             
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m2bertbrremarks}}</p>
                             </td>
 
 
                             <td scope="row">
-                                    <p *ngIf="showTextbox[i]"><input type=text style="width:50px" appOnlydouble required [(ngModel)]="m3native[i]" (change)="updateAcntBENPBE(i)"></p>
+                                    <p *ngIf="showTextbox[i]"><input type=text style="width:30px" [(ngModel)]="m3native[i]" (change)="updateAcntBENPBE(i)"></p>
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m3native | number:'1.1-1'}}</p>
                             </td>
                          <!--   <td scope="row">
@@ -109,16 +128,44 @@
                             <td scope="row"> {{acntBE.m3be-acntBE.m3rtbr | number:'1.1-1'}}   </td>
                            
                             <td scope="row">
-                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:60px" class="e-input" placeholder="M3 Remarks" [(ngModel)]="m3bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
+                                    <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:55px" class="e-input" placeholder="M3 Remarks" [(ngModel)]="m3bertbrremarks[i]" (change)="updateAcntBENPBE(i)"></textarea></div>
             
                                     <p *ngIf="!showTextbox[i]">{{acntBE.m3bertbrremarks}}</p>
                             </td>
 
+                            <td scope="row">{{acntBE.pmBE | number:'1.1-1'}} </td>
+                            <td scope="row">{{acntBE.rtb | number:'1.1-1'}} </td>
 
-                            <td scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton()"> </td>
+                            <td scope="row" *ngIf="!chkbox">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" (click)="toggleTextbox(i); toggleUpdatebutton(); updateAcntBENPBE(i)"> </td>
+                            <td scope="row" *ngIf="chkbox">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" [(ngModel)]="chkbox" (change)="toggleTextbox(i); toggleUpdatebutton(); updateAcntBENPBE(i)"> </td>
     
                             
                           </tr>
+                          <tr>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row">{{totalBE[8] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[11] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[8] - totalBE[11] | number:'1.1-1' }}</td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row">{{totalBE[9] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[12] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[9] - totalBE[12] | number:'1.1-1' }}</td>
+                                        <td scope="row"></td>
+                                        <td scope="row"></td>
+                                        <td scope="row">{{totalBE[10] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[13] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[10] - totalBE[13] | number:'1.1-1' }}</td>
+                                        <td scope="row"></td>
+                                        <td scope="row">{{totalBE[2] | number:'1.1-1' }}</td>
+                                        <td scope="row">{{totalBE[3] | number:'1.1-1' }}</td>
+              
+                                    </tr> 
 
                         </tbody>
                   

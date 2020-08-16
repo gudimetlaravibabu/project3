@@ -58,6 +58,13 @@ public class BEService {
     private double totalvolAOL;
     private double totalphcTargetAOLGap;
     private double totalvolTargetAOLGap;
+    private double totalcurrmnthdhbe;
+    private double totalm1be;
+    private double totalm2be;
+    private double totalm3be;
+    private double totalm1rtbr;
+    private double totalm2rtbr;
+    private double totalm3rtbr;
 
     @Value("${bl.dhrtbrfile}")
     private String dhrtbrfile;
@@ -95,20 +102,22 @@ public class BEService {
                         dhRTBR.setAccountName(row.getCell(1).getStringCellValue());
                 if(row.getCell(2)!=null)
                     dhRTBR.setDm(row.getCell(2).getStringCellValue());
+              //  if(row.getCell(3)!=null)
+                //    dhRTBR.setAccountDu(row.getCell(3).getStringCellValue());
                 if(row.getCell(3)!=null)
-                    dhRTBR.setAccountDu(row.getCell(3).getStringCellValue());
-                if(row.getCell(4)!=null)
-                    dhRTBR.setDa(row.getCell(4).getStringCellValue());
+                    dhRTBR.setDa(row.getCell(3).getStringCellValue());
+                if(row.getCell(4, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
+                    dhRTBR.setdHBE((double)row.getCell(4).getNumericCellValue());
+                if(row.getCell(5,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
+                    dhRTBR.setM1rtbr((double)row.getCell(5).getNumericCellValue());
+                if(row.getCell(6,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
+                    dhRTBR.setM2rtbr((double)row.getCell(6).getNumericCellValue());
+                if(row.getCell(7,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
+                    dhRTBR.setM3rtbr((double)row.getCell(7).getNumericCellValue());
+                if(row.getCell(8, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
+                    dhRTBR.setrTBR((double)row.getCell(8).getNumericCellValue());
                 if(row.getCell(9, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
-                    dhRTBR.setdHBE((double)row.getCell(9).getNumericCellValue());
-                if(row.getCell(17, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
-                        dhRTBR.setrTBR((double)row.getCell(17).getNumericCellValue());
-                if(row.getCell(10,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
-                    dhRTBR.setM1rtbr((double)row.getCell(10).getNumericCellValue());
-                if(row.getCell(15,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
-                    dhRTBR.setM2rtbr((double)row.getCell(15).getNumericCellValue());
-                if(row.getCell(16,Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)!=null)
-                    dhRTBR.setM3rtbr((double)row.getCell(16).getNumericCellValue());
+                    dhRTBR.setCurrmnthdhbe((double)row.getCell(9).getNumericCellValue());
 
 
                     dhRTBRList.add(dhRTBR);
@@ -120,14 +129,14 @@ public class BEService {
         }
 
         dhRTBRList.stream().forEach(p->{
-            AccountBE be = accountBERepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+            AccountBE be = accountBERepository.findAccountNameAccountTrack(p.getAccountName(),p.getAccountTrack(), p.getDm());
             if(be != null)
             {
-                accountBERepository.updateAcntBEDHRTBR(p.getM1rtbr(), p.getM2rtbr(), p.getM3rtbr(), p.getdHBE(), p.getrTBR(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                accountBERepository.updateAcntBEDHRTBR(p.getCurrmnthdhbe(), p.getM1rtbr(), p.getM2rtbr(), p.getM3rtbr(), p.getdHBE(), p.getrTBR(), p.getAccountName(), p.getAccountTrack(), p.getDm());
             }
             else{
 
-                accountBERepository.insertAcntBEDHRTBR(p.getM1rtbr(), p.getM2rtbr(), p.getM3rtbr(), p.getdHBE(), p.getrTBR(), p.getAccountName(), p.getAccountTrack(),p.getAccountDu(), p.getDa(), p.getDm());
+                accountBERepository.insertAcntBEDHRTBR(p.getCurrmnthdhbe(), p.getM1rtbr(), p.getM2rtbr(), p.getM3rtbr(), p.getdHBE(), p.getrTBR(), p.getAccountName(), p.getAccountTrack(), p.getDa(), p.getDm());
             }
         });
 
@@ -156,15 +165,15 @@ public class BEService {
     }
 
 
-    public List<Object> getTotalsSummary()  {
+  /*  public List<Object> getTotalsSummary()  {
         //return List.class.cast(accountBERepository.getTotalsSummary());
       /*  List<Object> obj1 = accountSummaryRepository.getTotalsSummary();
         obj1.stream().forEach(p->{
             p.toString().split(",");
-        });*/
+        });
       return accountSummaryRepository.getTotalsSummary();
     }
-
+*/
 
 
 
@@ -185,18 +194,33 @@ public class BEService {
         totalPMBERTBRGap=0;
         totalPMBENPBEGap=0;
         totalNPBERTBRGap=0;
+        totalcurrmnthdhbe=0;
+        totalm1be=0;
+        totalm2be=0;
+        totalm3be=0;
+        totalm1rtbr=0;
+        totalm2rtbr=0;
+        totalm3rtbr=0;
+
         accountBEList = accountBERepository.findByDmOrderByAccountName(dm);
         accountBEList.forEach((p)->{
             totalDHBE = totalDHBE + p.getDhBE();
            // totalNPBE = totalNPBE + p.getNpBE();
             totalPMBE = totalPMBE + p.getPmBE();
             totalRTBR = totalRTBR + p.getRtb();
+            totalcurrmnthdhbe=totalcurrmnthdhbe + p.getCurrmnthdhbe();
+            totalm1be=totalm1be + p.getM1be();
+            totalm2be=totalm2be + p.getM2be();
+            totalm3be=totalm3be + p.getM3be();
+            totalm1rtbr=totalm1rtbr + p.getM1rtbr();
+            totalm2rtbr=totalm2rtbr + p.getM2rtbr();
+            totalm3rtbr=totalm3rtbr + p.getM3rtbr();
             totalPMBERTBRGap = totalPMBERTBRGap + (p.getPmBE()-p.getRtb());
             totalPMBENPBEGap = totalPMBENPBEGap + (p.getPmBE()-p.getDhBE());
             totalNPBERTBRGap = totalNPBERTBRGap + (p.getRtb()-p.getDhBE());
          });
 
-        return Arrays.asList(totalDHBE, totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap, totalNPBERTBRGap);
+        return Arrays.asList(totalDHBE, totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap, totalNPBERTBRGap, totalcurrmnthdhbe, totalm1be, totalm2be, totalm3be, totalm1rtbr, totalm2rtbr, totalm3rtbr);
     }
 
     public List<Number> getTotalSummary(String dm) {
@@ -207,18 +231,33 @@ public class BEService {
         totalPMBERTBRGap=0;
         totalPMBENPBEGap=0;
         totalNPBERTBRGap=0;
+        totalcurrmnthdhbe=0;
+        totalm1be=0;
+        totalm2be=0;
+        totalm3be=0;
+        totalm1rtbr=0;
+        totalm2rtbr=0;
+        totalm3rtbr=0;
+
         accountSummaryList = accountSummaryRepository.findByDmOrderByAccountName(dm);
         accountSummaryList.forEach((p)->{
             totalDHBE = totalDHBE + p.getDhBE();
           //  totalNPBE = totalNPBE + p.getNpBE();
             totalPMBE = totalPMBE + p.getPmBE();
             totalRTBR = totalRTBR + p.getRtb();
+            totalcurrmnthdhbe=totalcurrmnthdhbe + p.getCurrmnthdhbe();
+            totalm1be=totalm1be + p.getM1be();
+            totalm2be=totalm2be + p.getM2be();
+            totalm3be=totalm3be + p.getM3be();
+            totalm1rtbr=totalm1rtbr + p.getM1rtbr();
+            totalm2rtbr=totalm2rtbr + p.getM2rtbr();
+            totalm3rtbr=totalm3rtbr + p.getM3rtbr();
             totalPMBERTBRGap = totalPMBERTBRGap + (p.getPmBE()-p.getRtb());
             totalPMBENPBEGap = totalPMBENPBEGap + (p.getPmBE()-p.getDhBE());
             totalNPBERTBRGap = totalNPBERTBRGap + (p.getRtb()-p.getDhBE());
         });
 
-        return Arrays.asList(totalDHBE,totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap,totalNPBERTBRGap);
+        return Arrays.asList(totalDHBE, totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap, totalNPBERTBRGap, totalcurrmnthdhbe, totalm1be, totalm2be, totalm3be, totalm1rtbr, totalm2rtbr, totalm3rtbr);
     }
 
 
@@ -230,18 +269,33 @@ public class BEService {
         totalPMBERTBRGap=0;
         totalPMBENPBEGap=0;
         totalNPBERTBRGap=0;
+        totalcurrmnthdhbe=0;
+        totalm1be=0;
+        totalm2be=0;
+        totalm3be=0;
+        totalm1rtbr=0;
+        totalm2rtbr=0;
+        totalm3rtbr=0;
+
         accountBEList = getSummaryBypM(pm);
         accountBEList.forEach((p)->{
             totalDHBE = totalDHBE + p.getDhBE();
           //  totalNPBE = totalNPBE + p.getNpBE();
             totalPMBE = totalPMBE + p.getPmBE();
             totalRTBR = totalRTBR + p.getRtb();
+            totalcurrmnthdhbe=totalcurrmnthdhbe + p.getCurrmnthdhbe();
+            totalm1be=totalm1be + p.getM1be();
+            totalm2be=totalm2be + p.getM2be();
+            totalm3be=totalm3be + p.getM3be();
+            totalm1rtbr=totalm1rtbr + p.getM1rtbr();
+            totalm2rtbr=totalm2rtbr + p.getM2rtbr();
+            totalm3rtbr=totalm3rtbr + p.getM3rtbr();
             totalPMBERTBRGap = totalPMBERTBRGap + (p.getPmBE()-p.getRtb());
             totalPMBENPBEGap = totalPMBENPBEGap + (p.getPmBE()-p.getDhBE());
             totalNPBERTBRGap = totalNPBERTBRGap + (p.getRtb()-p.getDhBE());
         });
 
-        return Arrays.asList(totalDHBE,totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap,totalNPBERTBRGap);
+        return Arrays.asList(totalDHBE, totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap, totalNPBERTBRGap, totalcurrmnthdhbe, totalm1be, totalm2be, totalm3be, totalm1rtbr, totalm2rtbr, totalm3rtbr);
     }
 
 
@@ -253,18 +307,33 @@ public class BEService {
         totalPMBERTBRGap=0;
         totalPMBENPBEGap=0;
         totalNPBERTBRGap=0;
+        totalcurrmnthdhbe=0;
+        totalm1be=0;
+        totalm2be=0;
+        totalm3be=0;
+        totalm1rtbr=0;
+        totalm2rtbr=0;
+        totalm3rtbr=0;
+
         accountBEList = accountBERepository.findByDmAndDaOrderByAccountName(dm, da);
         accountBEList.forEach((p)->{
             totalDHBE = totalDHBE + p.getDhBE();
           //  totalNPBE = totalNPBE + p.getNpBE();
             totalPMBE = totalPMBE + p.getPmBE();
             totalRTBR = totalRTBR + p.getRtb();
+            totalcurrmnthdhbe=totalcurrmnthdhbe + p.getCurrmnthdhbe();
+            totalm1be=totalm1be + p.getM1be();
+            totalm2be=totalm2be + p.getM2be();
+            totalm3be=totalm3be + p.getM3be();
+            totalm1rtbr=totalm1rtbr + p.getM1rtbr();
+            totalm2rtbr=totalm2rtbr + p.getM2rtbr();
+            totalm3rtbr=totalm3rtbr + p.getM3rtbr();
             totalPMBERTBRGap = totalPMBERTBRGap + (p.getPmBE()-p.getRtb());
             totalPMBENPBEGap = totalPMBENPBEGap + (p.getPmBE()-p.getDhBE());
             totalNPBERTBRGap = totalNPBERTBRGap + (p.getRtb()-p.getDhBE());
         });
 
-        return Arrays.asList(totalDHBE,totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap,totalNPBERTBRGap);
+        return Arrays.asList(totalDHBE, totalNPBE,totalPMBE,totalRTBR,totalPMBERTBRGap,totalPMBENPBEGap, totalNPBERTBRGap, totalcurrmnthdhbe, totalm1be, totalm2be, totalm3be, totalm1rtbr, totalm2rtbr, totalm3rtbr);
     }
 
 
@@ -323,7 +392,7 @@ public class BEService {
     }*/
 
 
-    public AccountBE test(String a, String b)
+   /* public AccountBE test(String a, String b)
     {
 
 
@@ -332,7 +401,7 @@ public class BEService {
         return asSOA;
         //asAPI = accountBERepository.findByAccountNameAndAccountTrack(a,b)
 
-    }
+    } */
 
 
     public List<AccountBE> updateCurrConv(String month) {
@@ -386,6 +455,24 @@ public class BEService {
     }
 
 
+
+
+
+
+    public List<AccountBE> updateActuals(String month) {
+
+            if (month.equals("m1")) {
+                accountBERepository.updatem1actuals();
+            }
+            if (month.equals("m2")) {
+                accountBERepository.updatem2actuals();
+            }
+            if (month.equals("m3")) {
+                accountBERepository.updatem3actuals();
+            }
+
+            return accountBERepository.findAll();
+    }
 
 }
 

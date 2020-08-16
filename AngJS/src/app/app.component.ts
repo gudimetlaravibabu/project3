@@ -48,7 +48,6 @@ export class AppComponent {
    {label:"AllPhcVolTotal", url:"allphcvoltotal"},
    {label:"PHCFuture", url:"phcfuture"},
    {label:"Load MasterData", url:"loadmasterdata"},
-   {label:"Add Account", url:"addAcnt"},
    {label:"NxtMnth PhcVol Trgt", url:"nxtmnthpvtarget"},
    {label:"BottomsUpBE", url:"nbrnp"},
    {label:"logout", url:"logout"}

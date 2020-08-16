@@ -1,0 +1,59 @@
+-- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: phcvol
+-- ------------------------------------------------------
+-- Server version	8.0.13
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `phc_vol_total`
+--
+
+DROP TABLE IF EXISTS `phc_vol_total`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `phc_vol_total` (
+  `phcaod` double NOT NULL,
+  `phcaol` double NOT NULL,
+  `phc_gap` double NOT NULL,
+  `phc_target` double NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `volaod` double NOT NULL,
+  `vol_gap` double NOT NULL,
+  `vol_target` double NOT NULL,
+  `dm` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phc_vol_total`
+--
+
+LOCK TABLES `phc_vol_total` WRITE;
+/*!40000 ALTER TABLE `phc_vol_total` DISABLE KEYS */;
+INSERT INTO `phc_vol_total` VALUES (625,618,-19,637,'',648.3099999999998,-6.6899999999999835,654.99,'Amit',1),(468,455,-27,482,'',490.7399999999999,-18.630000000000003,509.36,'Bindu',2),(560,557,-8,565,'',564.72,10.020000000000024,554.7,'Harish',3),(243,240,-4,244,'',266.23,3.2299999999999986,263,'NP',4),(129,129,-6,135,'',133.69,1.6799999999999962,132.01,'Mukul',5);
+/*!40000 ALTER TABLE `phc_vol_total` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-08-16 20:49:21

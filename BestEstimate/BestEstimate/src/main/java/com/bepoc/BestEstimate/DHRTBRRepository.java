@@ -22,7 +22,7 @@ public interface DHRTBRRepository extends JpaRepository<DHRTBR, Integer> {
     public void insertDHRTBRDB(@Param("dhBE") double dhBE, @Param("rtbr") double rtbr, @Param("accountName") String accountName, @Param("accountTrack") String accountTrack);
 
     @Modifying
-    @Query(value = "update DHRTBR A set A.dhBE=0, A.rtbr=0",nativeQuery = true)
+    @Query(value = "delete from DHRTBR",nativeQuery = true)
     public void updateDHRTBRDBZero();
 
 

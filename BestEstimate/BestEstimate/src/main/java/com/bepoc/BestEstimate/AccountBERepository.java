@@ -20,8 +20,8 @@ public interface AccountBERepository extends JpaRepository<AccountBE, Integer> {
     public List<AccountBE> findByDmOrderByAccountName(String dm);
 
 
-    @Query(value="select * from AccountBE where account_Name = :account_Name and account_Track= :account_Track", nativeQuery = true)
-    public AccountBE findAccountNameAccountTrack(@Param("account_Name") String account_Name, @Param("account_Track") String account_Track);
+    @Query(value="select * from AccountBE where account_Name = :account_Name and account_Track= :account_Track and dm=:dm", nativeQuery = true)
+    public AccountBE findAccountNameAccountTrack(@Param("account_Name") String account_Name, @Param("account_Track") String account_Track, @Param("dm") String dm);
 
    // select account_name, account_track, sum(dhbe), sum(pmbe), sum(rtb),group_concat(distinct remarks order by remarks desc separator '\n') from AccountBE  where account_Name = 'AUSGRID' and dm='NP' group by account_Name, account_Track;
     @Query(value="select account_name, account_track, sum(dhbe) dhbe, sum(pmbe) pmbe, sum(rtb) rtb,group_concat(distinct remarks order by remarks desc separator '\\n') remarks from AccountBE where dm = :dm group by account_Name, account_Track", nativeQuery = true)
@@ -39,8 +39,8 @@ public interface AccountBERepository extends JpaRepository<AccountBE, Integer> {
 
 
     @Modifying
-    @Query(value = "update AccountBE A set A.m1rtbr = :m1rtbr, A.m2rtbr = :m2rtbr, A.m3rtbr = :m3rtbr, A.dhBE=:dhBE, A.rtb=:rtb where A.account_Name= :accountName and A.account_Track= :accountTrack and A.account_Du=:accountDu and A.dm= :dm",nativeQuery = true)
-    public void updateAcntBEDHRTBR(@Param("m1rtbr") double m1rtbr, @Param("m2rtbr") double m2rtbr, @Param("m3rtbr") double m3rtbr, @Param("dhBE") double dhBE, @Param("rtb") double rtb, @Param("accountName") String accountName, @Param("accountTrack") String accountTrack, @Param("accountDu") String accountDu, @Param("dm") String dm);
+    @Query(value = "update AccountBE A set A.m1rtbr = :m1rtbr, A.m2rtbr = :m2rtbr, A.m3rtbr = :m3rtbr, A.dhBE=:dhBE, A.rtb=:rtb, A.currmnthdhbe=:currmnthdhbe where A.account_Name= :accountName and A.account_Track= :accountTrack and A.dm= :dm",nativeQuery = true)
+    public void updateAcntBEDHRTBR(@Param("currmnthdhbe") double currmnthdhbe, @Param("m1rtbr") double m1rtbr, @Param("m2rtbr") double m2rtbr, @Param("m3rtbr") double m3rtbr, @Param("dhBE") double dhBE, @Param("rtb") double rtb, @Param("accountName") String accountName, @Param("accountTrack") String accountTrack, @Param("dm") String dm);
 
 
     @Modifying
@@ -55,9 +55,24 @@ public interface AccountBERepository extends JpaRepository<AccountBE, Integer> {
     @Query(value = "update AccountBE A set A.m3usdconversion =:m3usdcurr where A.nativecurrency = :nativecurr",nativeQuery = true)
     public void updatem3curr(@Param("m3usdcurr") double m1usdcurr, @Param("nativecurr") String nativecurr);
 
+
     @Modifying
-    @Query(value = "insert into AccountBE (m1rtbr, m2rtbr, m3rtbr, dhBE,rtb,account_name,account_track,account_du,da,dm) values (:m1rtbr, :m2rtbr, :m3rtbr, :dhBE,:rtb,:accountName,:accountTrack,:accountDu, :da,:dm)",nativeQuery = true)
-    public void insertAcntBEDHRTBR(@Param("m1rtbr") double m1rtbr, @Param("m2rtbr") double m2rtbr, @Param("m3rtbr") double m3rtbr, @Param("dhBE") double dhBE, @Param("rtb") double rtb, @Param("accountName") String accountName, @Param("accountTrack") String accountTrack, @Param("accountDu") String accountDu, @Param("da") String da, @Param("dm") String dm);
+    @Query(value = "update AccountBE A set A.m1be=A.m1rtbr, A.m1native = A.m1rtbr*(1/(A.m1usdconversion*(1-0.01*A.nativediscount))), A.pmbe = (A.m1rtbr + A.m2be + A.m3be)  where A.m1usdconversion > 0",nativeQuery = true)
+    public void updatem1actuals();
+
+    @Modifying
+    @Query(value = "update AccountBE A set A.m2be=A.m2rtbr, A.m2native = A.m2rtbr*(1/(A.m2usdconversion*(1-0.01*A.nativediscount))) , A.pmbe = (A.m1rtbr + A.m2rtbr + A.m3be) where A.m2usdconversion > 0",nativeQuery = true)
+    public void updatem2actuals();
+
+    @Modifying
+    @Query(value = "update AccountBE A set A.m3be=A.m3rtbr, A.m3native = A.m3rtbr*(1/(A.m3usdconversion*(1-0.01*A.nativediscount))), A.pmbe = (A.m1rtbr + A.m2rtbr + A.m3rtbr) where A.m3usdconversion > 0",nativeQuery = true)
+    public void updatem3actuals();
+
+
+
+    @Modifying
+    @Query(value = "insert into AccountBE (currmnthdhbe, m1rtbr, m2rtbr, m3rtbr, dhBE,rtb,account_name,account_track,da,dm) values (:currmnthdhbe, :m1rtbr, :m2rtbr, :m3rtbr, :dhBE,:rtb,:accountName,:accountTrack, :da,:dm)",nativeQuery = true)
+    public void insertAcntBEDHRTBR(@Param("currmnthdhbe") double currmnthdhbe, @Param("m1rtbr") double m1rtbr, @Param("m2rtbr") double m2rtbr, @Param("m3rtbr") double m3rtbr, @Param("dhBE") double dhBE, @Param("rtb") double rtb, @Param("accountName") String accountName, @Param("accountTrack") String accountTrack, @Param("da") String da, @Param("dm") String dm);
 
     /* @Query(value="SELECT sum(npBE), sum(pmBE), sum(rtb), sum(pmBE)-sum(rtb), sum(npBE- from AccountBE", nativeQuery = true)
     public List<String> findAllAccountsBE();*/

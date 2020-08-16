@@ -69,6 +69,12 @@ import { NbrprashantComponent } from './nbrprashant/nbrprashant.component';
 import { NbrsaradaComponent } from './nbrsarada/nbrsarada.component';
 import { NbrTileComponent } from './nbr-tile/nbr-tile.component';
 import { CurrconvComponent } from './currconv/currconv.component';
+import { M1currconvComponent } from './m1currconv/m1currconv.component';
+import { M2currconvComponent } from './m2currconv/m2currconv.component';
+import { M3currconvComponent } from './m3currconv/m3currconv.component';
+import { M1actualsComponent } from './m1actuals/m1actuals.component';
+import { M2actualsComponent } from './m2actuals/m2actuals.component';
+import { M3actualsComponent } from './m3actuals/m3actuals.component';
 
 
 
@@ -135,7 +141,13 @@ import { CurrconvComponent } from './currconv/currconv.component';
     NbrprashantComponent,
     NbrsaradaComponent,
     NbrTileComponent,
-    CurrconvComponent
+    CurrconvComponent,
+    M1currconvComponent,
+    M2currconvComponent,
+    M3currconvComponent,
+    M1actualsComponent,
+    M2actualsComponent,
+    M3actualsComponent
     
     
   ],
