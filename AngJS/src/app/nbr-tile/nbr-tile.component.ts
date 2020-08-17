@@ -160,26 +160,30 @@ export class NbrTileComponent implements OnInit {
 
     this.accountBE[i].currmnthbe = this.currmnthbe[i];
     this.accountBE[i].currmnthrtbr = this.currmnthrtbr[i];
+    this.accountBE[i].remarks = '';
+ 
 
-    if(this.m1bertbrremarks[i] !== null) 
+    if(this.m1bertbrremarks[i] !== '') 
     {
     this.accountBE[i].remarks = "m1->"+ this.m1bertbrremarks[i] +"\n";
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-    if(this.m2bertbrremarks[i] !== null) 
+    if(this.m2bertbrremarks[i] !== '') 
     {
     this.accountBE[i].remarks = this.accountBE[i].remarks + "m2->"+ this.m2bertbrremarks[i] + "\n";
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-    if(this.m3bertbrremarks[i] !== null) 
+    if(this.m3bertbrremarks[i] !== '') 
     {
     this.accountBE[i].remarks = this.accountBE[i].remarks + "m3->"+ this.m3bertbrremarks[i];
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-
+    //this.m1bertbrremarks[i] = '';
+    //this.m2bertbrremarks[i] = '';
+    //this.m3bertbrremarks[i] = '';
 
   }
 
@@ -208,7 +212,7 @@ export class NbrTileComponent implements OnInit {
                  this.response = response; 
                  this.totalBE=this.response;
                
-                 this.router.navigateByUrl('allaccountspu/benp/benpall');
+                 this.router.navigateByUrl('nbrnp');
                 });
                
              }
