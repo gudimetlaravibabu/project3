@@ -93,13 +93,14 @@ export class AccountsTileComponent implements OnInit {
   updateDB(){
 
     this.accountBE.forEach((p)=>{
-      p.showTextbox = false;
+     
       
       if(p.showTextbox)
       {
-        
         p.showTextbox = false;     
         this.url = 'be/data/pu/'+p.id;
+
+        //console.log ("this.url==>"+ this.url);
            
              this.httpClient.put(this.url, p, {
                headers : new HttpHeaders({
@@ -117,6 +118,7 @@ export class AccountsTileComponent implements OnInit {
                  this.totalBE=this.response;
                
                  this.router.navigateByUrl('allaccountspu/benp');
+                 
                 });
                
              }

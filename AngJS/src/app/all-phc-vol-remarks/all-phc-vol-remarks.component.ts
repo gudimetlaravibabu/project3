@@ -29,7 +29,7 @@ export class AllPhcVolRemarksComponent implements OnInit {
     let password = 'pass'
     const headers = new HttpHeaders({ Authorization : 'Basic' + btoa(username +':'+password)}); */
  
-   this.httpClient.get("be/phcvolremarks/"+this.dm) //, {headers})
+   this.httpClient.get("phcvol/phcvolremarks/"+this.dm) //, {headers})
       .subscribe(
        (response)=>
         {
@@ -37,7 +37,7 @@ export class AllPhcVolRemarksComponent implements OnInit {
          this.response = response; 
          this.accountPV =this.response;
         
-        this.httpClient.get("be/phcvolremarks/total/"+this.dm) //, {headers})
+        this.httpClient.get("phcvol/phcvolremarks/total/"+this.dm) //, {headers})
          .subscribe(
              (response)=>
               {

@@ -46,7 +46,7 @@
                             <td scope="row">{{totPV.phcGap}}</td>
                             <td scope="row">{{totPV.volGap | number:'1.1-1' }}</td>
                             <td scope="row">
-                              <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
+                              <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:120px" class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
       
                               <p *ngIf="!showTextbox[i]">{{totPV.remarks}}</p>
                             </td>
@@ -57,18 +57,18 @@
 
                         <tr>
                           
-                          <td scope="row">Total</td>
-                          <td scope="row">{{totaldmpv[0]}}</td>
-                          <td scope="row">{{totaldmpv[1] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totaldmpv[2]}}</td>
-                          <td scope="row">{{totaldmpv[3] | number:'1.1-1' }}</td>
-                          <td scope="row">{{totaldmpv[4]}}</td>
+                          <th scope="col">Total</th>
+                          <th scope="col">{{totaldmpv[0]}}</th>
+                          <th scope="col">{{totaldmpv[1] | number:'1.1-1' }}</th>
+                          <th scope="col">{{totaldmpv[2]}}</th>
+                          <th scope="col">{{totaldmpv[3] | number:'1.1-1' }}</th>
+                          <th scope="col">{{totaldmpv[4]}}</th>
                           
-                          <td scope="row">{{totaldmpv[5]}}</td>
-                          <td scope="row">{{totaldmpv[6] | number:'1.1-1'}}</td>
+                          <th scope="col">{{totaldmpv[5]}}</th>
+                          <th scope="col">{{totaldmpv[6] | number:'1.1-1'}}</th>
                           
-                          <td scope="row"></td>
-                          <td scope="row"></td>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
   
                       </tr> 
                 

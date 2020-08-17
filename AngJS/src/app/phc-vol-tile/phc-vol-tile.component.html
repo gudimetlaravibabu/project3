@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="form-group">
+  <div class="table-responsive form-group">
       <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p> 
           <table #table class="table table-condensed ea_table">
                   <thead>
@@ -59,7 +59,7 @@
                       <td scope="row">{{acntPV.volAOD-acntPV.volTarget | number:'1.2-2' }}</td>
 
                       <td scope="row">
-                        <div class="wrap" *ngIf="showTextbox[i]"><textarea class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
+                        <div class="wrap" *ngIf="showTextbox[i]"><textarea style="width:100px" class="e-input" placeholder="Remarks" [(ngModel)]="remarks[i]" (change)="updateAcntBENPBE(i)" (click)="updateAcntBENPBE(i)"></textarea></div>
 
                         <p *ngIf="!showTextbox[i]">{{acntPV.remarks}}</p>
                       </td>
@@ -69,19 +69,19 @@
                     
                     </tr>
                    <tr>
-                        <td scope="row"></td>
-                        <td scope="row">Total</td>
-                        <td scope="row"></td>
-                        <td scope="row">{{totalPV[0]}}</td>
-                        <td scope="row">{{totalPV[1] | number:'1.2-2' }}</td>
-                        <td scope="row">{{totalPV[2]}}</td>
-                        <td scope="row">{{totalPV[3] | number:'1.2-2' }}</td>
-                        <td scope="row">{{totalPV[4]}}</td>
+                        <th scope="col"></th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                        <th scope="col">{{totalPV[0]}}</th>
+                        <th scope="col">{{totalPV[1] | number:'1.2-2' }}</th>
+                        <th scope="col">{{totalPV[2]}}</th>
+                        <th scope="col">{{totalPV[3] | number:'1.2-2' }}</th>
+                        <th scope="col">{{totalPV[4]}}</th>
                         
-                        <td scope="row">{{totalPV[6]}}</td>
-                        <td scope="row">{{totalPV[7] | number:'1.2-2' }}</td>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
+                        <th scope="col">{{totalPV[6]}}</th>
+                        <th scope="col">{{totalPV[7] | number:'1.2-2' }}</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
 
                     </tr> 
                   </tbody>

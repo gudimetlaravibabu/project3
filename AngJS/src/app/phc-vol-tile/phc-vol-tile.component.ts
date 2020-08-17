@@ -122,7 +122,7 @@ export class PhcVolTileComponent implements OnInit {
          
                  this.response = response; 
                  this.totalPV=this.response;
-                 this.router.navigateByUrl('allphcvoltotal');
+                 this.router.navigateByUrl('allphcvolpu/pvnp');
                 });
                
              }

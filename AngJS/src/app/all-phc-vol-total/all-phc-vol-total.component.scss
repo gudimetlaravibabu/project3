@@ -17,7 +17,11 @@
   .ea_table tr {
     display: flex;
   }
+
   
+  .ea_table th {
+    background-color: #ccccff;
+  }
    
   .ea_table th, .ea_table td {
     width : 10px;

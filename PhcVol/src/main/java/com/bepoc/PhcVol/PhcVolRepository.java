@@ -29,7 +29,7 @@ public interface PhcVolRepository extends JpaRepository<PhcVol, Integer> {
     @Query(value="select * from Phc_vol where remarks !='NA'", nativeQuery = true)
     public List<PhcVol> findRemarksNotNA();
 
-    @Query(value=" select * from phc_vol where (phc_target-phcaol > 0) and dm=:dm", nativeQuery = true)
+    @Query(value=" select * from phc_vol where remarks !='' and dm=:dm", nativeQuery = true)
     public List<PhcVol> findRemarksForGaps(@Param("dm") String dm);
 
     @Query(value="select distinct(dm) from Phc_vol where dm is not null", nativeQuery = true)
