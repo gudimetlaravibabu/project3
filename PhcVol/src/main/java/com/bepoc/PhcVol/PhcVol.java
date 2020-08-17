@@ -10,7 +10,7 @@ public class PhcVol {
     private int id;
     private String accountName;
     private String accountTrack;
-    private String accountDu;
+   // private String accountDu;
     private String dm;
     private String da;
     private double phcTarget;
@@ -44,11 +44,10 @@ public class PhcVol {
     public PhcVol() {
     }
 
-    public PhcVol(int id, String accountName, String accountTrack, String accountDu, String dm, String da, double phcTarget, double volTarget, double phcAOD, double volAOD, double phcAOL, double volAOL, String remarks, boolean showTextbox, boolean showUpdatebutton, double nxtMnthOffshoreVol, double nxtMnthOnsiteVol, double nxtMnthTotalVol, int nxtMnthPHC, String nxtMnthGapremarks) {
+    public PhcVol(int id, String accountName, String accountTrack, String dm, String da, double phcTarget, double volTarget, double phcAOD, double volAOD, double phcAOL, double volAOL, String remarks, boolean showTextbox, boolean showUpdatebutton, double nxtMnthOffshoreVol, double nxtMnthOnsiteVol, double nxtMnthTotalVol, int nxtMnthPHC, String nxtMnthGapremarks) {
         this.id = id;
         this.accountName = accountName;
         this.accountTrack = accountTrack;
-        this.accountDu = accountDu;
         this.dm = dm;
         this.da = da;
         this.phcTarget = phcTarget;
@@ -89,14 +88,6 @@ public class PhcVol {
 
     public void setAccountTrack(String accountTrack) {
         this.accountTrack = accountTrack;
-    }
-
-    public String getAccountDu() {
-        return accountDu;
-    }
-
-    public void setAccountDu(String accountDu) {
-        this.accountDu = accountDu;
     }
 
     public String getDm() {

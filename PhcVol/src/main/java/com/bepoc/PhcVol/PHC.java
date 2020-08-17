@@ -14,7 +14,7 @@ public class PHC {
     private int id;
     private String accountName;
     private String accountTrack;
-    private String accountDu;
+   // private String accountDu;
     private String dm;
     private String empName;
     private Date allocEndDate;
@@ -27,11 +27,10 @@ public class PHC {
     public PHC() {
     }
 
-    public PHC(int id, String accountName, String accountTrack, String accountDu, String dm, String empName, Date allocEndDate, Date nextAllocDate, String projType, String lastMCC, String accountMCC, String futExits) {
+    public PHC(int id, String accountName, String accountTrack, String dm, String empName, Date allocEndDate, Date nextAllocDate, String projType, String lastMCC, String accountMCC, String futExits) {
         this.id = id;
         this.accountName = accountName;
         this.accountTrack = accountTrack;
-        this.accountDu = accountDu;
         this.dm = dm;
         this.empName = empName;
         this.allocEndDate = allocEndDate;
@@ -64,14 +63,6 @@ public class PHC {
 
     public void setAccountTrack(String accountTrack) {
         this.accountTrack = accountTrack;
-    }
-
-    public String getAccountDu() {
-        return accountDu;
-    }
-
-    public void setAccountDu(String accountDu) {
-        this.accountDu = accountDu;
     }
 
     public String getDm() {

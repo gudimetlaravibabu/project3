@@ -94,21 +94,19 @@ public class BEService {
             PhcVol phcVol = new PhcVol();
             XSSFRow row = worksheet.getRow(i);
 
-            if((row.getCell(4)!=null) && (row.getCell(5) != null)) {
+            if(row.getCell(2)!=null) {
                 if (row.getCell(0) != null)
                     phcVol.setAccountTrack(row.getCell(0).getStringCellValue());
                 if (row.getCell(1) != null)
                     phcVol.setAccountName(row.getCell(1).getStringCellValue());
                 if (row.getCell(2) != null)
                     phcVol.setDm(row.getCell(2).getStringCellValue());
-                if (row.getCell(3) != null)
-                    phcVol.setAccountDu(row.getCell(3).getStringCellValue());
+                //if (row.getCell(3) != null)
+                //    phcVol.setAccountDu(row.getCell(3).getStringCellValue());
+                if (row.getCell(3) != null) ;
+                phcVol.setPhcTarget((double) row.getCell(3).getNumericCellValue());
                 if (row.getCell(4) != null) ;
-                    phcVol.setPhcTarget((double) row.getCell(4).getNumericCellValue());
-                if (row.getCell(5) != null) ;
-                    phcVol.setVolTarget((double) row.getCell(5).getNumericCellValue());
-
-
+                phcVol.setVolTarget((double) row.getCell(4).getNumericCellValue());
 
                 phcVolList.add(phcVol);
             }
@@ -118,13 +116,16 @@ public class BEService {
 
 
             phcVolList.stream().forEach(p->{
-                PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                //PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getDm());
                 if(pv != null)
                 {
-                    phcVolRepository.updatePhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                    //phcVolRepository.updatePhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                    phcVolRepository.updatePhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getDm());
                 }
                 else {
-                    phcVolRepository.insertPhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                   // phcVolRepository.insertPhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                    phcVolRepository.insertPhcVolDBTarget(p.getPhcTarget(), p.getVolTarget(), p.getAccountName(), p.getAccountTrack(), p.getDm());
                 }
 
 
@@ -158,21 +159,21 @@ public class BEService {
             PhcVol phcVol = new PhcVol();
             XSSFRow row = worksheet.getRow(i);
 
-            if(row.getCell(5)!=null) {
+            if(row.getCell(2)!=null) {
                     if (row.getCell(0) != null)
                         phcVol.setAccountTrack(row.getCell(0).getStringCellValue());
                     if (row.getCell(1) != null)
                         phcVol.setAccountName(row.getCell(1).getStringCellValue());
                     if (row.getCell(2) != null)
                         phcVol.setDm(row.getCell(2).getStringCellValue());
+                   // if (row.getCell(3) != null)
+                   //     phcVol.setAccountDu(row.getCell(3).getStringCellValue());
                     if (row.getCell(3) != null)
-                        phcVol.setAccountDu(row.getCell(3).getStringCellValue());
-                    if (row.getCell(4) != null)
-                         phcVol.setDa(row.getCell(4).getStringCellValue());
+                         phcVol.setDa(row.getCell(3).getStringCellValue());
                   //  if (row.getCell(7) != null) ;
                     //    phcVol.setVolTarget((double) row.getCell(7).getNumericCellValue());
-                    if (row.getCell(5) != null) ;
-                        phcVol.setVolAOD((double) row.getCell(5).getNumericCellValue());
+                    if (row.getCell(4) != null) ;
+                        phcVol.setVolAOD((double) row.getCell(4).getNumericCellValue());
 
                     phcVolList.add(phcVol);
              }
@@ -180,15 +181,18 @@ public class BEService {
         }
 
               phcVolList.stream().forEach(p->{
-                  PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+               //   PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                  PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getDm());
                   if(pv != null)
                   {
-                     System.out.println("======================> update value :" + pv.getAccountName() + pv.getAccountTrack() + pv.getDm());
-                     phcVolRepository.updatePhcVolDBVolAOD(p.getVolAOD(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                    // System.out.println("======================> update value :" + pv.getAccountName() + pv.getAccountTrack() + pv.getDm());
+                    // phcVolRepository.updatePhcVolDBVolAOD(p.getVolAOD(), p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+                      phcVolRepository.updatePhcVolDBVolAOD(p.getDa(), p.getVolAOD(), p.getAccountName(), p.getAccountTrack(), p.getDm());
                  }
                   else{
-                     System.out.println("======================> insert value :" + p.getAccountName() + p.getAccountTrack() + p.getDm());
-                      phcVolRepository.insertPhcVolDBVolAOD(0, p.getVolAOD(), p.getAccountName(), p.getAccountTrack(),p.getAccountDu(), p.getDa(), p.getDm());
+                    // System.out.println("======================> insert value :" + p.getAccountName() + p.getAccountTrack() + p.getDm());
+                    //  phcVolRepository.insertPhcVolDBVolAOD(0, p.getVolAOD(), p.getAccountName(), p.getAccountTrack(),p.getAccountDu(), p.getDa(), p.getDm());
+                      phcVolRepository.insertPhcVolDBVolAOD(0, p.getVolAOD(), p.getAccountName(), p.getAccountTrack(), p.getDa(), p.getDm());
                   }
             });
 
@@ -215,13 +219,13 @@ public class BEService {
 
                if ( row.getCell(16)!=null && q.equals(row.getCell(16).getStringCellValue())) {
 
-                   System.out.println("q value ======> " + q);
+                  // System.out.println("q value ======> " + q);
 
 
                     if(row.getCell(0)!=null)
                         phc.setAccountTrack(row.getCell(0).getStringCellValue());
-                    if(row.getCell(1)!=null)
-                       phc.setAccountDu(row.getCell(1).getStringCellValue());
+                   // if(row.getCell(1)!=null)
+                   //    phc.setAccountDu(row.getCell(1).getStringCellValue());
                     if(row.getCell(3)!=null)
                         phc.setEmpName(row.getCell(3).getStringCellValue());
                     if(row.getCell(9)!=null)
@@ -257,8 +261,8 @@ public class BEService {
 
                     if(row.getCell(0)!=null)
                         phc.setAccountTrack(row.getCell(0).getStringCellValue());
-                    if(row.getCell(1)!=null)
-                        phc.setAccountDu(row.getCell(1).getStringCellValue());
+                 //   if(row.getCell(1)!=null)
+                   //     phc.setAccountDu(row.getCell(1).getStringCellValue());
                     if(row.getCell(3)!=null)
                         phc.setEmpName(row.getCell(3).getStringCellValue());
 
@@ -297,20 +301,26 @@ public class BEService {
 
         phcList.stream().forEach(p->{
 
-        PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+       // PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getAccountDu(), p.getDm());
+            PhcVol pv = phcVolRepository.findAccountNameAccountTrackAccountDU(p.getAccountName(),p.getAccountTrack(), p.getDm());
 
             if(pv == null)
             {
 
-                phcVolRepository.insertPhcVolDBVolAOD(0, 0, p.getAccountName(), p.getAccountTrack(),p.getAccountDu(), "", p.getDm());
+                // phcVolRepository.insertPhcVolDBVolAOD(0, 0, p.getAccountName(), p.getAccountTrack(),p.getAccountDu(), "", p.getDm());
+                phcVolRepository.insertPhcVolDBVolAOD(0, 0, p.getAccountName(), p.getAccountTrack(), "", p.getDm());
             }
 
-        phcVolRepository.updatePhcVolDBPhcAOD(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(),p.getDm());
-        phcVolRepository.updatePhcVolDBPhcAOL(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
-        phcVolRepository.updatePhcVolDBPhcAOLFutExistsAcnt(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+       // phcVolRepository.updatePhcVolDBPhcAOD(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(),p.getDm());
+            phcVolRepository.updatePhcVolDBPhcAOD(p.getAccountName(), p.getAccountTrack(), p.getDm());
+       // phcVolRepository.updatePhcVolDBPhcAOL(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+            phcVolRepository.updatePhcVolDBPhcAOL(p.getAccountName(), p.getAccountTrack(), p.getDm());
+       // phcVolRepository.updatePhcVolDBPhcAOLFutExistsAcnt(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+            phcVolRepository.updatePhcVolDBPhcAOLFutExistsAcnt(p.getAccountName(), p.getAccountTrack(), p.getDm());
 
 
-        phcVolRepository.updatePhcVolDBPhcAOLFutExistsLmcc(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+       // phcVolRepository.updatePhcVolDBPhcAOLFutExistsLmcc(p.getAccountName(), p.getAccountTrack(), p.getAccountDu(), p.getDm());
+            phcVolRepository.updatePhcVolDBPhcAOLFutExistsLmcc(p.getAccountName(), p.getAccountTrack(), p.getDm());
 
 
 
