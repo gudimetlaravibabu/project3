@@ -47,12 +47,12 @@
                             <p *ngIf="!showTextbox[i]">{{acntPV.nxtMnthOnsiteVol}}</p>
                         </td>
                         
-                        <td scope="row">{{acntPV.nxtMnthOffshoreVol + acntPV.nxtMnthOnsiteVol}}</td>
+                        <td scope="row">{{acntPV.nxtMnthTotalVol}}</td>
                     
                         
                           
                         <td scope="row">{{acntPV.nxtMnthPHC - acntPV.phcAOL }}</td>                     
-                        <td scope="row">{{acntPV.nxtMnthOffshoreVol + acntPV.nxtMnthOnsiteVol - acntPV.volAOD | number}}</td>
+                        <td scope="row">{{acntPV.nxtMnthTotalVol - acntPV.volAOD | number}}</td>
                         
   
                         <td scope="row">

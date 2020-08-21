@@ -1,9 +1,11 @@
-<p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p>
-            
 
+            
+        <p style="text-align:right"><button (click)="ExportTOExcel()">Export to Excel</button></p>        
         <section class="content-area">
             <div class="table-area">
-                <table class="responsive-table table-bordered table-condensed auto-w">
+               <div class="form-group">
+                        
+                <table #table class="responsive-table table-bordered table-condensed auto-w">
 
                         <thead>
                           <tr>
@@ -171,6 +173,6 @@
                   
                       
                       </table>
-           
+                </div>
         </div>
 </section>

@@ -69,7 +69,7 @@ export class NbrTileComponent implements OnInit {
 
     if(!this.accountBE[i].showTextbox)
     {
-      
+
       this.accountBE[i].showTextbox = true;
       this.accountBE[i].showUpdatebutton = true;
       this.nativecurrency[i] = this.accountBE[i].nativecurrency;
@@ -163,27 +163,25 @@ export class NbrTileComponent implements OnInit {
     this.accountBE[i].remarks = '';
  
 
-    if(this.m1bertbrremarks[i] !== '') 
+    if(this.m1bertbrremarks[i] !== null) 
     {
     this.accountBE[i].remarks = "m1->"+ this.m1bertbrremarks[i] +"\n";
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-    if(this.m2bertbrremarks[i] !== '') 
+    if(this.m2bertbrremarks[i] !== null) 
     {
     this.accountBE[i].remarks = this.accountBE[i].remarks + "m2->"+ this.m2bertbrremarks[i] + "\n";
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-    if(this.m3bertbrremarks[i] !== '') 
+    if(this.m3bertbrremarks[i] !== null) 
     {
     this.accountBE[i].remarks = this.accountBE[i].remarks + "m3->"+ this.m3bertbrremarks[i];
     console.log ("this.accountBE[i].remarks==>"+this.accountBE[i].remarks);
     }
 
-    //this.m1bertbrremarks[i] = '';
-    //this.m2bertbrremarks[i] = '';
-    //this.m3bertbrremarks[i] = '';
+
 
   }
 
@@ -243,13 +241,16 @@ export class NbrTileComponent implements OnInit {
           });
        var fileName = 'PHCVol.xls';
        saveAs(blob, fileName); */
-  
+      // setTimeout(() => {
+
        const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+      
        const wb: XLSX.WorkBook = XLSX.utils.book_new();
        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       
       // /* save to file */
-       XLSX.writeFile(wb, 'BERTBR.xlsx');
+       XLSX.writeFile(wb, 'bottoms-up.xlsx');
+      //}, 1000);
   }
 
    
